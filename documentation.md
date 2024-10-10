@@ -69,3 +69,9 @@
 - Stores the information in the mlflow log
 - Show the progress in the console
 - Save the model information
+
+## **marl_classification/metrics.py**:
+
+- Can be used to format metrics
+- Defines the class Meter that stores a list of processed results, which can be limited by a window_size argument
+- Defines the class ConfusionMeter which includes functions to calculates metrics such as confusion matrix, precision, and recall. It can also save an image of the confusion matrix
