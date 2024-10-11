@@ -1,4 +1,4 @@
-## **marl_classification/__main__.py**:
+## **marl_classification/\_\_main__.py**:
 - Beggining of the code
 - Receives arguments regarding the code run
 
@@ -78,3 +78,14 @@
 
 ## **marl_classification/options.py**:
 - Organizes the options from the run line into MainOptions, TrainOptions, EvalOptions and InferOptions NamedTuple classes
+
+## **marl_classification/\_\_init__.py**:
+- Does nothing
+
+## **marl_classification/eval.py**:
+- Code for the evaluation process (while training)
+- Reads the evaluation options decided by the user
+- Evaluates the model on the test dataset
+- Loads the agents and the data
+- Calls the function that creates the confusion matrix
+- Estimates precision, precision mean, recall and recall mean
