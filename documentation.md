@@ -1,10 +1,90 @@
-## **marl_classification/\_\_main__.py**:
-- Beggining of the code
-- Receives arguments regarding the code run
+# MARL Classification <!-- omit in toc -->
 
-### Main subparser
+Table of Content
 
-- Must be either "train", "test" or "infer"
+- [Folder Structure](#folder-structure)
+- [**marl\_classification/__main__.py**:](#marl_classificationmainpy)
+  - [Main Arguments](#main-arguments)
+  - [Train Arguments](#train-arguments)
+  - [Test Arguments](#test-arguments)
+  - [Infer Arguments](#infer-arguments)
+- [**marl\_classification/train.py**:](#marl_classificationtrainpy)
+- [**marl\_classification/metrics.py**:](#marl_classificationmetricspy)
+- [**marl\_classification/options.py**:](#marl_classificationoptionspy)
+- [**marl\_classification/\_\_init\_\_.py**:](#marl_classification__init__py)
+- [**marl\_classification/eval.py**:](#marl_classificationevalpy)
+
+
+---
+
+## Folder Structure
+
+```bash
+marl_classification
+├── __init__.py # just another init file
+├── __main__.py # entry point for training, testing and inference scripts
+├── core
+│   ├── __init__.py # exports some classes and functions from core
+│   ├── agent.py # defines the Agent class
+│   ├── episode.py # defines episode and detailed_episode function (episode_retry is not used)
+│   ├── observation.py # defines the Observation function
+│   └── transition.py # defines the transition function
+├── data # data processing scripts
+│   ├── __init__.py
+│   ├── dataset.py # define image loaders for different datasets
+│   └── transforms.py # defines img transformations (not used)
+├── eval.py # defines the evaluation script, is triggered from __main__.py
+├── infer.py # defines the inference script, is triggered from __main__.py
+├── metrics.py # defines the Loss and Confussion Meter classes
+├── networks
+│   ├── __init__.py # exports some classes and functions from networks
+│   ├── ft_extractor.py # defines the feature extractor classes for different datasets
+│   ├── message.py # defines the MessageSender and MessageReceiver classes
+│   ├── models.py # defines the ModelsWrapper class
+│   ├── policy.py # defines the Policy class and Critic class
+│   ├── prediction.py # defines the Prediction class
+│   └── recurrent.py # defines the LSTMCellWrapper
+├── options.py # defines the options for the training, testing and inference scripts
+└── train.py # defines the main training script, is triggered from __main__.py
+```
+
+---
+
+
+
+## **marl_classification/__main__.py**:
+This file is the entry point for the training, testing and inference scripts. It uses the argparse library to parse the command line arguments and call the appropriate function.
+
+
+To inspect the usage of the script, run the following command:
+
+```bash
+python -m marl_classification --help
+```
+
+```bash
+usage: Multi agent reinforcement learning for image classification - Main [-h] --run-id RUN_ID [-a AGENTS] [--step STEP] [--cuda] {train,test,infer} ...
+
+positional arguments:
+  {train,test,infer}
+
+options:
+  -h, --help            show this help message and exit
+  --run-id RUN_ID       MLFlow run id
+  -a AGENTS, --agents AGENTS
+                        Number of agents
+  --step STEP           Step number of RL episode
+  --cuda                Train NNs with CUDA
+```
+
+to explore more about the subparsers, run the following command for `train`:
+
+```bash
+python -m marl_classification train --help
+```
+
+same for `test` and `infer`.
+
 
 ### Main Arguments
 
