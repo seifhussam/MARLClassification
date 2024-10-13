@@ -11,6 +11,8 @@ Table of Content
 - [**marl\_classification/train.py**:](#marl_classificationtrainpy)
 - [**marl\_classification/metrics.py**:](#marl_classificationmetricspy)
 - [**marl\_classification/options.py**:](#marl_classificationoptionspy)
+- [**marl\_classification/\_\_init\_\_.py**:](#marl_classification__init__py)
+- [**marl\_classification/eval.py**:](#marl_classificationevalpy)
 
 
 ---
@@ -156,3 +158,14 @@ same for `test` and `infer`.
 
 ## **marl_classification/options.py**:
 - Organizes the options from the run line into MainOptions, TrainOptions, EvalOptions and InferOptions NamedTuple classes
+
+## **marl_classification/\_\_init__.py**:
+- Does nothing
+
+## **marl_classification/eval.py**:
+- Code for the evaluation process (while training)
+- Reads the evaluation options decided by the user
+- Evaluates the model on the test dataset
+- Loads the agents and the data
+- Calls the function that creates the confusion matrix
+- Estimates precision, precision mean, recall and recall mean
