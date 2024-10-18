@@ -8,6 +8,9 @@ from ..networks.models import ModelsWrapper
 
 
 class MultiAgent:
+    """
+    Class constituted to host the multiple agents
+    """
     def __init__(
         self,
         nb_agents: int,
@@ -20,6 +23,23 @@ class MultiAgent:
         obs: Callable[[th.Tensor, th.Tensor, int], th.Tensor],
         trans: Callable[[th.Tensor, th.Tensor, int, List[int]], th.Tensor],
     ) -> None:
+        """
+        "__init__": is the MultiAgent constructor
+
+        Args:
+        nb_agents (int): number of agents in the multi-agent 
+        model_wrapper (ModelWrapper): the ModelWrapper used in the simulation
+        n_b (int): hidden size for belief in LSTM 
+        n_a (int): hidden size for action in LSTM
+        f (int): window size
+        n_m (int): message size for NN
+        action (List[List[int]]): actions done by the agents
+        obs (Callable): Callable object regarding the agents observations
+        trans (Callable): Callable object representing the transitions
+
+        Return:
+        None
+        """
         # Agent info
         self.__nb_agents = nb_agents
 
@@ -62,6 +82,18 @@ class MultiAgent:
         self.__device_str = "cpu"
 
     def new_episode(self, batch_size: int, img_size: List[int]) -> None:
+        """
+        "new_episode": creates a new episode by setting some values to 
+        zero and others to random
+        
+        Args:
+        self (MultiAgent object): the MultiAgent object itself
+        batch_size (int): batch size
+        img_size (List[int]): image dimensions
+
+        Return:
+        None
+        """
         self.__batch_size = batch_size
 
         self.__t = 0
@@ -131,6 +163,14 @@ class MultiAgent:
         )
 
     def step(self, img: th.Tensor) -> None:
+        """
+        "step": increases one step in the simulation
+
+        Args:
+        self (MultiAgent object): the MultiAgent object itself
+        img (torch tensor): image
+
+        """
         img_sizes = list(img.size()[2:])
         nb_agent = len(self)
 
@@ -227,6 +267,16 @@ class MultiAgent:
         self.__t += 1
 
     def predict(self) -> Tuple[th.Tensor, th.Tensor, th.Tensor]:
+        """
+        "predict": predicts the class with the information available in the
+        MultiAgent class
+
+        Args:         
+        self (MultiAgent object): the MultiAgent object itself
+
+        Returns:
+        Tuple of three tensors: prediction, probabilities and the critic value to each character
+        """
         return (
             self.__networks(self.__networks.predict, self.__h[-1]),
             self.__action_probas[-1].log(),
@@ -235,18 +285,56 @@ class MultiAgent:
 
     @property
     def is_cuda(self) -> bool:
+        """
+        "is_cuda": returns whether the process is running on the GPU
+        
+        Args:
+        self (MultiAgent object): the MultiAgent object itself
+
+        Returns:
+        bool
+        """
         return self.__is_cuda
 
     def cuda(self) -> None:
+        """
+        "cuda" is called when the process is ran on the GPU and updates
+        that information in the MultiAgent object
+
+        Args:
+        self (MultiAgent object): the MultiAgent object itself
+
+        Returns:
+        None
+        """
         self.__is_cuda = True
         self.__device_str = "cuda"
 
     def cpu(self) -> None:
+        """
+        "cpu" is called when the process is ran on the CPU and updates
+        that information in the MultiAgent object
+
+        Args:
+        self (MultiAgent object): the MultiAgent object itself
+
+        Returns:
+        None
+        """
         self.__is_cuda = False
         self.__device_str = "cpu"
 
     @property
     def pos(self) -> th.Tensor:
+        """
+        "pos": returns the agents positions
+
+        Args:
+        None
+
+        Return:
+        self.__pos (torch Tensor): positions of the agents
+        """
         return self.__pos
 
     def __len__(self) -> int:
@@ -261,6 +349,18 @@ class MultiAgent:
         obs: Callable[[th.Tensor, th.Tensor, int], th.Tensor],
         trans: Callable[[th.Tensor, th.Tensor, int, List[int]], th.Tensor],
     ) -> "MultiAgent":
+        
+        """
+        "load_from": loads the MultiAgent object from a JSON file with the models wrapper information
+
+        Args:
+        models_wrapper_json_file (str): path to the ModelsWrapper information stored in a JSON file
+        nb_agent (int): number of agents
+        model_wrapper (ModelsWrapper object): ModelsWrapper without the information
+        obs (Callable): Callable object regarding the agents observations
+        trans (Callable): Callable object representing the transitions
+        """
+
         with open(models_wrapper_json_file, "r", encoding="utf-8") as f_json:
             j_obj = json.load(f_json)
 
