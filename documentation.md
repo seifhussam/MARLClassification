@@ -101,8 +101,8 @@ same for `test` and `infer`.
 - "--dim"/"-d": state dimension (e.g. 2D)
 - "--f": window size
 - "--ft-extr": feature extractor (e.g. CNN for mnist)
-- "--nb": hidden size for action in Long Short-Term Memory (LSTM)
-- "--na": hidden size for belief LTSM
+- "--nb": hidden size for belief in Long Short-Term Memory (LSTM)
+- "--na": hidden size for action LTSM
 - "--nm": message size for Neural Networks
 - "--nd": state hidden size
 - "--nlb": neuronal internal hidden size for linear projections (action unit)
