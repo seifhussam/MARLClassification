@@ -9,6 +9,21 @@ from .agent import MultiAgent
 def episode(
     agents: MultiAgent, img_batch: th.Tensor, max_it: int
 ) -> Tuple[th.Tensor, th.Tensor]:
+    """
+    "episode" runs a new episode each time it is called
+      and all the time steps
+
+    Args:
+    agents (MultiAgent object): contains the information
+    regarding all the agents
+    img_batch (torch tensor): all the images used in the
+    batch
+    max_it (int): maximum number of iterations
+
+    Return:
+    q (torch tensor): predictions 
+    probas (torch tensor): probabilities
+    """
     img_sizes = list(img_batch.size()[2:])
     agents.new_episode(img_batch.size(0), img_sizes)
 
@@ -27,6 +42,26 @@ def detailed_episode(
     device_str: str,
     nb_class: int,
 ) -> Tuple[th.Tensor, th.Tensor, th.Tensor, th.Tensor]:
+    """
+    "detailed_episode": detailed version of the episode
+    funtion, with more returns
+
+    Args:
+    agents (MultiAgent object): contains the information
+    regarding all the agents
+    img_batch (torch tensor): all the images used in the
+    batch
+    max_it (int): maximum number of iterations
+    device_str (str): string whether it is running on the
+    GPU or CPU
+    nb_class (int): number of classes
+
+    Return:
+    step_preds (torch Tensor): predictions
+    step_probas (torch Tensor): probabilities
+    step_values (torch Tensor): critic values
+    step_pos (torch Tensor): positions
+    """
     img_sizes = list(img_batch.size()[2:])
     batch_size = img_batch.size(0)
 
@@ -85,6 +120,25 @@ def episode_retry(
     nb_class: int,
     device_str: str,
 ) -> Tuple[th.Tensor, th.Tensor]:
+    """
+    "episode_retry": never used function but appears to
+    retry an episode whenever called
+
+    Args:
+    agents (MultiAgent object): contains the information
+    regarding all the agents
+    img_batch (torch tensor): all the images used in the
+    batch
+    max_it (int): maximum number of iterations
+    device_str (str): string whether it is running on the
+    GPU or CPU
+    nb_class (int): number of classes
+
+    Return:
+    step_preds (torch Tensor): predictions
+    step_probas (torch Tensor): probabilities
+    """
+
     img_batch = img_batch.to(th.device(device_str))
 
     retry_pred = th.zeros(
