@@ -88,18 +88,18 @@ class ModelsWrapper(nn.Module):
 
         self.__networks_dict = nn.ModuleDict(
             {
-                self.map_obs: map_obs_module,
-                self.map_pos: StateToFeatures(d, n_d),
-                self.evaluate_msg: MessageSender(n_b, n_m, hidden_size_belief),
+                self.map_obs: map_obs_module, # partial observation
+                self.map_pos: StateToFeatures(d, n_d), # image processing
+                self.evaluate_msg: MessageSender(n_b, n_m, hidden_size_belief), # one component of Communication module
                 self.belief_unit: LSTMCellWrapper(
                     map_obs_module.out_size + n_d + n_m, n_b
-                ),
+                ), # belief Module
                 self.action_unit: LSTMCellWrapper(
                     map_obs_module.out_size + n_d + n_m, n_a
-                ),
-                self.policy: Policy(len(actions), n_a, hidden_size_action),
+                ), # Decision Module
+                self.policy: Policy(len(actions), n_a, hidden_size_action), # Policy Module
                 self.critic: Critic(n_a, hidden_size_action),
-                self.predict: Prediction(n_b, nb_class, hidden_size_belief),
+                self.predict: Prediction(n_b, nb_class, hidden_size_belief), # Prediction Module
             }
         )
 
