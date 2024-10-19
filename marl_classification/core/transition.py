@@ -12,6 +12,18 @@ def trans_generic(
     f: int,
     img_size: List[int],
 ) -> th.Tensor:
+    """
+    "trans_generic": generic transition between one position to another
+
+    Args:
+    pos (torch tensor): postion of all the agents
+    a_t_next (torch tensor): next action
+    f (int): window size
+    img_size (List[int]): images shape
+
+    Return:
+    torch tensor: new position of all the agents
+    """
     new_pos = pos.clone()
     dim = new_pos.size(-1)
 
