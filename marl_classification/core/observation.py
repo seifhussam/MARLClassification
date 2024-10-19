@@ -6,6 +6,18 @@ import torch as th
 
 
 def obs_generic(x: th.Tensor, pos: th.Tensor, f: int) -> th.Tensor:
+    """
+    "obs_generic": describes a generic observation
+
+    Args:
+    x (torch tensor): all the images in the batch
+    pos (torch tensor): all the positions of the agents
+    f (int): window size
+
+    Return:
+    torch tensor: all the patches seen by all the agents respecting
+    its position
+    """
     x_sizes = x.size()
     b_img, c = x_sizes[0], x_sizes[1]
     sizes = list(x_sizes[2:])
