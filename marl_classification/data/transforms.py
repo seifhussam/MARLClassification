@@ -4,16 +4,43 @@ from typing import Tuple, cast
 
 import torch as th
 
+"""
+The classes in this file are never called in the project
+"""
 
 class ImgTransform(metaclass=ABCMeta):
+    """
+    The super class of the image transformations
+    """
     @abstractmethod
     def __call__(self, img_data: th.Tensor) -> th.Tensor:
+        """
+        ""__call__"" is an abstract method that will initate an error 
+        if the called method is not implemented
+
+        Args:
+        self (ImgTransform object): the ImgTransform object itself
+        img_data (torch tensor): image
+
+        Return:
+        torch tensor: transformed image
+
+        """
         raise NotImplementedError(
             self.__class__.__name__
             + ".__call__ method is not implemented, must be overridden !"
         )
 
     def __repr__(self) -> str:
+        """
+        "__repr__": defines the class name, when the object is called
+
+        Args:
+        self (ImgTransform object): the ImgTransform object itself
+
+        Return:
+        str: the class name
+        """
         return self.__class__.__name__ + "()"
 
 
