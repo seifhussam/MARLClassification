@@ -103,7 +103,22 @@ class UserNormalNorm(ImgTransform):
 
 
 class ChannelNormalNorm(ImgTransform):
+    """
+    Class defining the channel normalization with the Normal distribution
+    applied channel-wise
+    """
     def __call__(self, x: th.Tensor) -> th.Tensor:
+        """
+        "__call__": when the function is called, returns the transformed
+        image
+
+        Args:
+        self (ChannelNormalNorm object): the ChannelNormalNorm object itself
+        x (torch tensor): the image itself
+
+        Return:
+        torch tensor: the transformed image
+        """
         mean = x.view(3, -1).mean(dim=-1).view(3, 1, 1)
         std = x.view(3, -1).std(dim=-1).view(3, 1, 1)
 
@@ -111,7 +126,21 @@ class ChannelNormalNorm(ImgTransform):
 
 
 class NormalNorm(ImgTransform):
+    """
+    Class of the image normalization according to the Normal (Gaussian) distribution
+    """
     def __call__(self, x: th.Tensor) -> th.Tensor:
+        """
+        "__call__": when the function is called, returns the transformed
+        image
+
+        Args:
+        self (NormalNorm object): the NormalNorm object itself
+        x (torch tensor): the image itself
+
+        Return:
+        torch tensor: the transformed image
+        """
         return (x - th.mean(x)) / th.std(x)
 
 
