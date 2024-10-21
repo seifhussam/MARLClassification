@@ -48,18 +48,54 @@ class ImgTransform(metaclass=ABCMeta):
 # Normal normalization
 #########################
 class UserNormalNorm(ImgTransform):
+    """
+    Class of the image normalization according to the Normal (Gaussian) distribution
+    """
     def __init__(
         self, mean: Tuple[float, float, float], std: Tuple[float, float, float]
     ) -> None:
+        """
+        "__init__": initiates the UserNormalNorm class
+
+        Args:
+        self (UserNormalNorm object): the UserNormalNorm object itself
+        mean (Tuple of three Floats): mean value of each channel
+        std (Tuple of three Floats): standard deviation value of each channel
+
+        Return:
+        None
+
+        """
         super().__init__()
 
         self.__mean = th.tensor(mean)
         self.__std = th.tensor(std)
 
     def __call__(self, x: th.Tensor) -> th.Tensor:
+        """
+        "__call__": when the function is called, returns the transformed
+        image
+
+        Args:
+        self (UserNormalNorm object): the UserNormalNorm object itself
+        x (torch tensor): the image itself
+
+        Return:
+        torch tensor: the transformed image
+        
+        """
         return (x - self.__mean) / self.__std
 
     def __repr__(self) -> str:
+        """
+        "__repr__": defines the class name, when the object is called
+
+        Args:
+        self (UserNormalNorm object): the UserNormalNorm object itself
+
+        Return:
+        str: a string with the mean and the standatd deviation
+        """
         return (
             self.__class__.__name__
             + f"(mean = {str(self.__mean)}, std = {str(self.__std)})"
