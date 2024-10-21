@@ -201,14 +201,43 @@ class UserMinMaxNorm(ImgTransform):
 
 
 class MinMaxNorm(ImgTransform):
+    """
+    Class of the image normalization according to the MinMax normalization
+    """
     def __call__(self, x: th.Tensor) -> th.Tensor:
+        """
+        "__call__": when the function is called, returns the transformed
+        image
+
+        Args:
+        self (MinMaxNorm object): the MinMaxNorm object itself
+        x (torch tensor): the image itself
+
+        Return:
+        torch tensor: the transformed image
+        """
         x_max = x.max()
         x_min = x.min()
         return (x - x_min) / (x_max - x_min)
 
 
 class ChannelMinMaxNorm(ImgTransform):
+    """
+    Class of the image normalization according to the MinMax normalization
+    applied to each channel
+    """
     def __call__(self, x: th.Tensor) -> th.Tensor:
+        """
+        "__call__": when the function is called, returns the transformed
+        image
+
+        Args:
+        self (ChannelMinMaxNorm object): the ChannelMinMaxNorm object itself
+        x (torch tensor): the image itself
+
+        Return:
+        torch tensor: the transformed image
+        """
         x_max = x.view(3, -1).max(dim=-1)[0].view(3, 1, 1)
         x_min = x.view(3, -1).min(dim=-1)[0].view(3, 1, 1)
         return cast(th.Tensor, (x - x_min) / (x_max - x_min))
