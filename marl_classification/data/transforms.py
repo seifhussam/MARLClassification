@@ -94,7 +94,7 @@ class UserNormalNorm(ImgTransform):
         self (UserNormalNorm object): the UserNormalNorm object itself
 
         Return:
-        str: a string with the mean and the standatd deviation
+        str: a string with the mean and the standard deviation
         """
         return (
             self.__class__.__name__
@@ -148,18 +148,52 @@ class NormalNorm(ImgTransform):
 # Uniform normalization
 #########################
 class UserMinMaxNorm(ImgTransform):
+    """
+    Class of the image normalization according to the Uniform distribution
+    """
     def __init__(
         self,
         min_value: Tuple[float, float, float],
         max_value: Tuple[float, float, float],
     ):
+        """
+        "__init__": initiates the UserMinMaxNorm class
+
+        Args:
+        self (UserMinMaxNorm object): the UserMinMaxNorm object itself
+        min_value (Tuple of three Floats): minimum value of each channel
+        max_value (Tuple of three Floats): maximum value of each channel
+
+        Return:
+        None
+        """
         self.__min = th.tensor(min_value)
         self.__max = th.tensor(max_value)
 
     def __call__(self, x: th.Tensor) -> th.Tensor:
+        """
+        "__call__": when the function is called, returns the transformed
+        image
+
+        Args:
+        self (UserMinMaxNorm object): the UserMinMaxNorm object itself
+        x (torch tensor): the image itself
+
+        Return:
+        torch tensor: the transformed image
+        """
         return (x - self.__min) / (self.__max - self.__min)
 
     def __repr__(self) -> str:
+        """
+        "__repr__": defines the class name, when the object is called
+
+        Args:
+        self (UserMinMaxNorm object): the UserMinMaxNorm object itself
+
+        Return:
+        str: a string with the minimum and maximum values
+        """
         return (
             self.__class__.__name__
             + f"(min_value = {self.__min}, max_value = {self.__max})"
