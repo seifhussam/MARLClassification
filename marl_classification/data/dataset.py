@@ -15,6 +15,15 @@ from torchvision.datasets import ImageFolder
 
 
 def my_pil_loader(path: str) -> Image.Image:
+    """
+    "my_pil_loader": loads an image using Pillow, cosnidering the image's path
+
+    Args:
+    path (str): image's path
+
+    Return
+    Pillow image 
+    """
     # open path as file to avoid ResourceWarning
     # (https://github.com/python-pillow/Pillow/issues/835)
     with open(path, "rb") as f:
@@ -23,9 +32,24 @@ def my_pil_loader(path: str) -> Image.Image:
 
 
 class MNISTDataset(ImageFolder):
+    """
+    Class of the MNIST dataset, extending the ImageFolder object
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": MNISTDataset class constructor
+
+        Args:
+        self (MNISTDataset Object): the MNISTDataset Object itself
+        res_path (str): root path
+        img_transform (callable): image transformation
+
+        Return:
+        None
+        """
+
         mnist_root_path = join(res_path, "downloaded", "mnist_png", "all_png")
 
         assert exists(mnist_root_path) and isdir(
@@ -42,9 +66,24 @@ class MNISTDataset(ImageFolder):
 
 
 class RESISC45Dataset(ImageFolder):
+    """
+    Class of the RESISC45Dataset dataset, extending the ImageFolder object
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": RESISC45Dataset class constructor
+
+        Args:
+        self (RESISC45Dataset Object): the RESISC45Dataset Object itself
+        res_path (str): root path
+        img_transform (callable): image transformation
+
+        Return:
+        None
+        """
+
         resisc_root_path = join(res_path, "downloaded", "NWPU-RESISC45")
 
         assert exists(resisc_root_path) and isdir(
@@ -61,9 +100,24 @@ class RESISC45Dataset(ImageFolder):
 
 
 class AIDDataset(ImageFolder):
+    """
+    Class of the AIDDataset dataset, extending the ImageFolder object
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": AIDDataset class constructor
+
+        Args:
+        self (AIDDataset Object): the AIDDataset Object itself
+        res_path (str): root path
+        img_transform (callable): image transformation
+
+        Return:
+        None
+        """
+
         aid_root_path = join(res_path, "downloaded", "AID")
 
         assert exists(aid_root_path) and isdir(
