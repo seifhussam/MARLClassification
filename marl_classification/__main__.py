@@ -12,6 +12,17 @@ from .train import train
 
 
 def main() -> None:
+    """
+    "main": receives multiple information regarding the run specifications,
+    organizes it and manages, taking the necessary actions for the code to execute
+    the desired functions. The arguments control what happens in the run.
+
+    Args:
+    None
+
+    Return:
+    None
+    """
     main_parser = argparse.ArgumentParser(
         "Multi agent reinforcement learning for image classification - Main"
     )
