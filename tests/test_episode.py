@@ -63,7 +63,7 @@ def test_detailed_episode(
     step (int): number of steps
     nb_class (int): number of classes
     nb_agent (int): number of agents
-    dim (int): dimensions
+    dim (int): dimensions of the dataset (2 if it is 2D and 3 if it is 3D)
     height_width (Tuple[int, int]): height and width of the image
 
     Return:
