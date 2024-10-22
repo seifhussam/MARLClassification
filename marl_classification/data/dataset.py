@@ -354,6 +354,15 @@ class WorldStratDataset(Dataset):
         return img_transformed, th.tensor(png_class_idx)
 
     def __len__(self) -> int:
+        """
+        "__len__": returns the lenght (number of images) of the dataset
+
+        Args:
+        self (WorldStratDataset): WorldStratDataset object itself
+
+        Return:
+        int: number of images in the dataset
+        """
         return len(self.__metadata)
 
 
@@ -393,9 +402,23 @@ class SkinCancerDataset(ImageFolder):
 
 
 class KineticsDataset(Dataset):
+    """
+    Creates the KineticsDataset class extending from the Dataset class
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": KineticsDataset class constructor
+
+        Args:
+        self (KineticsDataset object): KineticsDataset object itself
+        res_path (str): KineticsDataset folder's path
+        img_transform (callable): image transformation applied
+
+        Return:
+        None
+        """
         kinetics_dataset_path = join(
             res_path, "downloaded", "kinetics700_2020"
         )
@@ -427,6 +450,17 @@ class KineticsDataset(Dataset):
         self.__transform = img_transform
 
     def __getitem__(self, index: int) -> Tuple[th.Tensor, th.Tensor]:
+        """
+        "__getitem__": gets an image after receiving an index
+
+        Args:
+        self (KineticsDataset object): KineticsDataset object itself
+        index (int): image's index
+
+        Return:
+        tuple of torch tensors: the transformed image and the 
+        label of the image 
+        """
         video_path = self.__all_videos[index]
         video_label = self.__all_labels[video_path]
 
@@ -444,7 +478,25 @@ class KineticsDataset(Dataset):
 
     @property
     def class_to_idx(self) -> Dict[str, int]:
+        """
+        "class_to_idx": creates a dictionary for each class associated with an index
+
+        Args:
+        self (KineticsDataset Object): the KineticsDataset object itself
+
+        Return:
+        Dictionary: associates a number (index) to each label (class)
+        """
         return self.__class_to_idx
 
     def __len__(self) -> int:
+        """
+        "__len__": returns the lenght (number of images) of the dataset
+
+        Args:
+        self (KineticsDataset): KineticsDataset object itself
+
+        Return:
+        int: number of images in the dataset
+        """
         return len(self.__all_videos)
