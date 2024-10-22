@@ -358,11 +358,25 @@ class WorldStratDataset(Dataset):
 
 
 class SkinCancerDataset(ImageFolder):
+    """
+    Creates the class of the SkinCancerDataset, extending the class ImageFolder
+    """
     # https://github.com/Ipsedo/MARLClassification/issues/4
     # https://drive.google.com/drive/folders/17g6zFSbCNXTV3VaDKop73W7Cn-NJlTO7?usp=sharing
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": constructor of the SkinCancerDataset class
+
+        Args:
+        self (SkinCancerDataset object): the SkinCancerDataset object itself
+        res_path (str): SkinCancerDataset folder's path
+        img_transform (callable): image transformation applied
+
+        Return:
+        None
+        """
         skin_cancer_dataset_path = join(res_path, "downloaded", "skin_cancer")
 
         assert exists(skin_cancer_dataset_path) and isdir(
