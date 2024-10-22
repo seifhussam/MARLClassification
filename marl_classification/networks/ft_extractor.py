@@ -91,7 +91,19 @@ class MNISTCnn(CNNFtExtract):
 
 
 class RESISC45Cnn(CNNFtExtract):
+    """
+    Class of the RESISC45 feature extracting, extending CNNFtExtract
+    """
     def __init__(self, f: int) -> None:
+        """
+        "__init__": RESISC45Cnn constructor
+
+        Args:
+        self (RESISC45Cnn object): RESISC45Cnn object itself
+        f (int): window size
+        
+        Return: None
+        """
         super().__init__()
 
         self.__seq_conv = nn.Sequential(
@@ -113,10 +125,30 @@ class RESISC45Cnn(CNNFtExtract):
         self.__out_size = 64 * (f // 8) ** 2
 
     def forward(self, o_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (RESISC45Cnn object): RESISC45Cnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+
+        """
         return cast(th.Tensor, self.__seq_conv(o_t))
 
     @property
     def out_size(self) -> int:
+        """
+        "out_size": size of the output
+
+        Args:
+        self (RESISC45Cnn object): RESISC45Cnn object itself
+
+        Return:
+        int: size of the output
+        """
         return self.__out_size
 
 
