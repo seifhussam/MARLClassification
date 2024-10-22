@@ -138,7 +138,7 @@ def infer(main_options: MainOptions, infer_options: InferOptions) -> None:
     Args:
     main_options (NamedTuple): main options regarding the run
     infer_options (NamedTuple): specific infer options regarding the
-    evaluation
+    infer
 
     Return:
     None
