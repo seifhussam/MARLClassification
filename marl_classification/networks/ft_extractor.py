@@ -351,9 +351,21 @@ class KneeMRICnn(CNNFtExtract):
 
 
 class SkinCancerCnn(CNNFtExtract):
+    """
+    Class of the SkinCancer feature extracting, extending CNNFtExtract
+    """
     # https://github.com/Ipsedo/MARLClassification/issues/4
     # https://drive.google.com/drive/folders/17g6zFSbCNXTV3VaDKop73W7Cn-NJlTO7?usp=sharing
     def __init__(self, f: int) -> None:
+        """
+        "__init__": SkinCancerCnn constructor
+
+        Args:
+        self (SkinCancerCnn object): SkinCancerCnn object itself
+        f (int): window size
+        
+        Return: None
+        """
         super().__init__()
 
         self.__seq_conv = nn.Sequential(
@@ -376,9 +388,28 @@ class SkinCancerCnn(CNNFtExtract):
 
     @property
     def out_size(self) -> int:
+        """
+        "out_size": size of the output
+
+        Args:
+        self (KneeMRICnn object): KneeMRICnn object itself
+
+        Return:
+        int: size of the output
+        """
         return self.__out_size
 
     def forward(self, o_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (KneeMRICnn object): KneeMRICnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+        """
         out: th.Tensor = self.__seq_conv(o_t)
         return out
 
