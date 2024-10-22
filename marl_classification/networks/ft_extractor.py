@@ -217,7 +217,19 @@ class AIDCnn(CNNFtExtract):
 
 
 class WorldStratCnn(CNNFtExtract):
+    """
+    Class of the WorldStrat feature extracting, extending CNNFtExtract
+    """
     def __init__(self, f: int) -> None:
+        """
+        "__init__": WorldStratCnn constructor
+
+        Args:
+        self (WorldStratCnn object): WorldStratCnn object itself
+        f (int): window size
+        
+        Return: None
+        """
         super().__init__()
 
         self.__seq_conv = nn.Sequential(
@@ -247,10 +259,29 @@ class WorldStratCnn(CNNFtExtract):
         self.__out_size = 256 * (f // 32) ** 2
 
     def forward(self, o_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (WorldStratCnn object): WorldStratCnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+        """
         return cast(th.Tensor, self.__seq_conv(o_t))
 
     @property
     def out_size(self) -> int:
+        """
+        "out_size": size of the output
+
+        Args:
+        self (WorldStratCnn object): WorldStratCnn object itself
+
+        Return:
+        int: size of the output
+        """
         return self.__out_size
 
 
