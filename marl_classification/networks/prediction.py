@@ -8,10 +8,25 @@ from torchvision.ops import Permute
 
 class Prediction(nn.Module):
     """
+    Create Prediction class extending nn.Module
+    """
+    """
     q_θ8 : R^n -> R^M
     """
 
     def __init__(self, n: int, nb_class: int, hidden_size: int) -> None:
+        """
+        "__init__": Prediction class constructor
+
+        Args:
+        self (Prediction object): Prediction object itself
+        n (int): input shape
+        nb_class (int): number of classes
+        hidden_size (int): number of hidden layers
+
+        Return:
+        None
+        """
         super().__init__()
 
         self.__n = n
@@ -27,4 +42,14 @@ class Prediction(nn.Module):
         )
 
     def forward(self, c_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the Prediction network
+        
+        Args:
+        self (Prediction object): Prediction object itself
+        c_t (torch tensor): input
+
+        Return:
+        torch tensor: result of the forward step
+        """
         return cast(th.Tensor, self.__seq_lin(c_t))
