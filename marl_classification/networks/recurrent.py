@@ -6,6 +6,9 @@ from torch import nn
 
 
 class LSTMCellWrapper(nn.Module):
+    """
+    Create the LTSMCellWrapper extending nn.Module
+    """
     # f_θ1 : R^2n * R^3n -> R^2n
     #
     # f_θ2 : ?
@@ -13,6 +16,17 @@ class LSTMCellWrapper(nn.Module):
     # R^2n : pas sûr
 
     def __init__(self, input_size: int, n: int) -> None:
+        """
+        "__init__": LSTMCellWrapper constructor
+
+        Args:
+        self (LSTMCellWrapper object): LSTMCellWrapper object itself
+        input_size (int): size of the input
+        n (int): hidden size
+
+        Return:
+        None
+        """
         super().__init__()
 
         self.__lstm = nn.LSTMCell(input_size, n)
@@ -20,6 +34,18 @@ class LSTMCellWrapper(nn.Module):
     def forward(
         self, h: th.Tensor, c: th.Tensor, u: th.Tensor
     ) -> Tuple[th.Tensor, th.Tensor]:
+        """
+        "forward": forward step of the LSTMCell
+
+        Args:
+        self (LSTMCellWrapper object): LSTMCellWrapper object itself
+        h (torch tensor): input feature dimension
+        c (torch tensor): input feature dimension
+        u (torch tensor): input size
+        
+        Return:
+        torch tensor: hidden state and cell state
+        """
         nb_ag, batch_size, _ = h.size()
 
         h, c, u = (
