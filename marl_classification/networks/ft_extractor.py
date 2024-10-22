@@ -134,7 +134,6 @@ class RESISC45Cnn(CNNFtExtract):
 
         Return:
         torch tensor: result of the forward step
-
         """
         return cast(th.Tensor, self.__seq_conv(o_t))
 
@@ -153,7 +152,19 @@ class RESISC45Cnn(CNNFtExtract):
 
 
 class AIDCnn(CNNFtExtract):
+    """
+    Class of the AID feature extracting, extending CNNFtExtract
+    """
     def __init__(self, f: int) -> None:
+        """
+        "__init__": AIDCnn constructor
+
+        Args:
+        self (AIDCnn object): AIDCnn object itself
+        f (int): window size
+        
+        Return: None
+        """
         super().__init__()
 
         self.__seq_conv = nn.Sequential(
@@ -180,9 +191,28 @@ class AIDCnn(CNNFtExtract):
 
     @property
     def out_size(self) -> int:
+        """
+        "out_size": size of the output
+
+        Args:
+        self (AIDCnn object): AIDCnn object itself
+
+        Return:
+        int: size of the output
+        """
         return self.__out_size
 
     def forward(self, o_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (AIDCnn object): AIDCnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+        """
         return cast(th.Tensor, self.__seq_conv(o_t))
 
 
