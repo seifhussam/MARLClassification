@@ -289,7 +289,19 @@ class WorldStratCnn(CNNFtExtract):
 
 
 class KneeMRICnn(CNNFtExtract):
+    """
+    Class of the KneeMRI feature extracting, extending CNNFtExtract
+    """
     def __init__(self, f: int = 16):
+        """
+        "__init__": KneeMRICnn constructor
+
+        Args:
+        self (KneeMRICnn object): KneeMRICnn object itself
+        f (int): window size, default 16
+        
+        Return: None
+        """
         super().__init__()
 
         self.__seq_conv = nn.Sequential(
@@ -311,11 +323,30 @@ class KneeMRICnn(CNNFtExtract):
         self.__out_size = 32 * (f // 8) ** 3
 
     def forward(self, o_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (KneeMRICnn object): KneeMRICnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+        """
         out = cast(th.Tensor, self.__seq_conv(o_t))
         return out
 
     @property
     def out_size(self) -> int:
+        """
+        "out_size": size of the output
+
+        Args:
+        self (KneeMRICnn object): KneeMRICnn object itself
+
+        Return:
+        int: size of the output
+        """
         return self.__out_size
 
 
