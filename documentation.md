@@ -1,4 +1,4 @@
-# MARL Classification <!-- omit in toc -->
+# marl_classification <!-- omit in toc -->
 
 Table of Content
 
@@ -169,3 +169,59 @@ same for `test` and `infer`.
 - Loads the agents and the data
 - Calls the function that creates the confusion matrix
 - Estimates precision, precision mean, recall and recall mean
+
+# resources
+
+- Contains multiple bash files that can be used to download the datasets used by the repository's author
+- May require Kaggle API key to download
+
+``` bash
+resources
+ ┣ trained_models
+ ┃ ┣ mnist # Information relative to MNIST dataset
+ ┃ ┃ ┣ figures # contains images with the author's result (confusion matrix and prediction image)
+ ┃ ┃ ┣ model # model's information saved on a JSON file and the training results in epoch 39
+ ┃ ┃ ┣ class_to_idx.json # JSON file for class to index conversion
+ ┃ ┃ ┣ metrics.csv # CSV file with the metrics
+ ┃ ┃ ┗ stdout.txt # console output text
+ ┃ ┣ resisc45 # Information relative to RESISC45 dataset
+ ┃ ┃ ┣ figures # contains images with the author's result (confusion matrix and prediction image)
+ ┃ ┃ ┣ model # model's information saved on a JSON file and the training results in epoch 49
+ ┃ ┃ ┣ class_to_idx.json # JSON file for class to index conversion
+ ┃ ┃ ┣ metrics.csv # CSV file with the metrics
+ ┃ ┃ ┗ stdout.txt # console output text
+ ┣ download_AID_helper.sh # bash file for the AID dataset download
+ ┣ download_BigEarthNet-S2.sh # bash file for the BigEarthNet> dataset download
+ ┣ download_fMoW_rgb.sh # bash file for the fMoW dataset download
+ ┣ download_kinetics.sh # bash file for the Kinetics dataset download
+ ┣ download_knee_mri.sh # bash file for the KneeMRI dataset download
+ ┣ download_mnist.sh # bash file for the MNIST dataset download
+ ┣ download_modelnet10.sh # bash file for the ModelNet10 dataset download
+ ┣ download_resisc45_helper.sh # bash file for the RESISC45 dataset download
+ ┗ download_world_strat.sh # bash file for the WorldStrat dataset download
+```
+
+# notebooks
+
+- Contains multiple notebooks used to download, read or test datasets
+
+``` bash
+notebooks
+ ┣ download_kinetics.ipynb # download Kinetics
+ ┣ read_bigearthnet.ipynb # read BigEarthNet 
+ ┣ read_kinetics.ipynb # read Kinetics
+ ┣ read_worldstrat_dataset.ipynb # read WorldStrat
+ ┗ test_datasets.ipynb # test datasets
+ ```
+
+# tests
+
+- Multiple files used to test the simple concepts that constitute the project
+
+``` bash
+tests
+ ┣ conftest.py # code used to test the Multi-Agent initialization
+ ┣ test_episode.py # code used to test episode and its display of information
+ ┣ test_metrics.py # code used to test some evaluation metrics
+ ┗ __init__.py # initialization file that does nothing
+```
