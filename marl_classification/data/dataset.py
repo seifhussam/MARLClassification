@@ -134,7 +134,21 @@ class AIDDataset(ImageFolder):
 
 
 class KneeMRIDataset(Dataset):
+    """
+    Class of the KneeMRIDataset dataset, extending the Dataset object
+    """
     def __init__(self, res_path: str, _: Callable[[Any], th.Tensor]):
+        """
+        "__init__": KneeMRIDataset class constructor
+
+        Args:
+        self (KneeMRIDataset Object): the KneeMRIDataset Object itself
+        res_path (str): root path
+        _ (callable): unused
+
+        Return:
+        None
+        """
         super().__init__()
 
         self.__knee_mri_root_path = join(res_path, "downloaded", "knee_mri")
@@ -153,6 +167,15 @@ class KneeMRIDataset(Dataset):
         self.__nb_img = 0
 
         def __open_pickle_size(fn: str) -> None:
+            """
+            "__open_pickle_size": uses the Pickle library to open the MRI volume
+
+            Args:
+            fn (str): Name of the volume
+
+            Return:
+            None
+            """
             with open(
                 join(self.__knee_mri_root_path, "extracted", fn), "rb"
             ) as f:
@@ -180,6 +203,15 @@ class KneeMRIDataset(Dataset):
         }
 
     def __open_img(self, fn: str) -> th.Tensor:
+        """
+        "__open_img": used to open an image
+
+        Args:
+        fn (str): Name of the volume
+
+        Return:
+        torch tensor: opened image
+        """
         with open(join(self.__knee_mri_root_path, "extracted", fn), "rb") as f:
             x = pkl.load(f)
 
@@ -209,6 +241,16 @@ class KneeMRIDataset(Dataset):
         return fun.pad(x, [pad_6, pad_5, pad_4, pad_3, pad_2, pad_1], value=0)
 
     def __getitem__(self, index: int) -> Tuple[th.Tensor, th.Tensor]:
+        """
+        "__getitem__": gets an item from the KneeMRIDataset 
+
+        Args:
+        self (KneeMRIDataset): KneeMRIDataset object itself
+        index (int): index of the image
+
+        Return:
+        Tuple of two torch tensors: image and respective label
+        """
         fn = self.__dataset[index][0]
 
         label = self.__dataset[index][1]
@@ -217,6 +259,15 @@ class KneeMRIDataset(Dataset):
         return img, th.tensor(label)
 
     def __len__(self) -> int:
+        """
+        "__len__": returns the lenght (number of images) of the dataset
+
+        Args:
+        self (KneeMRIDataset): KneeMRIDataset object itself
+
+        Return:
+        int: number of images in the dataset
+        """
         return self.__nb_img
 
 
