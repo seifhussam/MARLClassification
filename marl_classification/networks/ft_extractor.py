@@ -419,10 +419,23 @@ class SkinCancerCnn(CNNFtExtract):
 ############################
 class StateToFeatures(nn.Module):
     """
+    Creates the StateToFeatures class, which extends torch nn.Module
+    """
+    """
     λ_θ7 : R^d -> R^n
     """
 
     def __init__(self, d: int, n_d: int) -> None:
+        """
+        "__init__": StateToFeatures class constructor
+
+        Args:
+        d (int): one dimension of the input
+        n_d (int): another dimension of the input
+
+        Return:
+        None
+        """
         super().__init__()
 
         self.__d = d
@@ -437,4 +450,14 @@ class StateToFeatures(nn.Module):
         )
 
     def forward(self, p_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (KneeMRICnn object): KneeMRICnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+        """
         return cast(th.Tensor, self.__seq_lin(p_t))
