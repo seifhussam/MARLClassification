@@ -5,6 +5,17 @@ from marl_classification.metrics import ConfusionMeter, LossMeter
 
 
 def test_confusion(tmp_path: str) -> None:
+    """
+    "test_confusion": used to test the saving of the 
+    confusion matrix
+
+    Args:
+    tmp_path (str): path to save the image
+
+    Return:
+    None
+    """
+
     nb_class = int(th.randint(2, 32, (1,)).item())
     y_pred = th.eye(nb_class).to(th.float)
 
@@ -30,6 +41,15 @@ def test_confusion(tmp_path: str) -> None:
 
 
 def test_loss() -> None:
+    """
+    "test_loss": used to test the effect of adding loss values
+
+    Args:
+    None
+    
+    Return:
+    None
+    """
     loss_meter = LossMeter(None)
 
     for v in [0.5, 0.25, 0.75, 0.5]:
