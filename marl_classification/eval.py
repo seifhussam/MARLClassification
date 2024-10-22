@@ -15,6 +15,18 @@ from .options import EvalOptions, MainOptions
 
 
 def evaluation(main_options: MainOptions, eval_options: EvalOptions) -> None:
+    """
+    "evaluation": receives the network information and procedes to evaluate it
+    respecting the options selected
+
+    Args:
+    main_options (NamedTuple): main options regarding the run
+    eval_options (NamedTuple): specific evaluation options regarding the
+    evaluation
+
+    Return:
+    None
+    """
     assert exists(
         eval_options.json_path
     ), f'JSON path "{eval_options.json_path}" does not exist'
