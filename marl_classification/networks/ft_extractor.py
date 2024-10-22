@@ -8,6 +8,9 @@ from torchvision.ops import Permute
 
 
 class CNNFtExtract(nn.Module, ABC):
+    """
+    Class of the CNNs used for feature extraction, extending torch nn.Module 
+    """
     @property
     @abstractmethod
     def out_size(self) -> int:
@@ -23,10 +26,22 @@ class CNNFtExtract(nn.Module, ABC):
 
 class MNISTCnn(CNNFtExtract):
     """
+    Class of the MNIST feature extracting, extending CNNFtExtract
+    """
+    """
     b_θ5 : R^f*f -> R^n
     """
 
     def __init__(self, f: int) -> None:
+        """
+        "__init__": MNISTCnn constructor
+
+        Args:
+        self (MNISTCnn object): MNISTCnn object itself
+        f (int): window size
+        
+        Return: None
+        """
         super().__init__()
 
         self.__seq_conv = nn.Sequential(
@@ -44,11 +59,31 @@ class MNISTCnn(CNNFtExtract):
         self.__out_size = 32 * (f // 4) ** 2
 
     def forward(self, o_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (MNISTCnn object): MNISTCnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+
+        """
         o_t = o_t[:, 0, None, :, :]  # grey scale
         return cast(th.Tensor, self.__seq_conv(o_t))
 
     @property
     def out_size(self) -> int:
+        """
+        "out_size": size of the output
+
+        Args:
+        self (MNISTCnn object): MNISTCnn object itself
+
+        Return:
+        int: size of the output
+        """
         return self.__out_size
 
 
