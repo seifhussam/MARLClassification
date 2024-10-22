@@ -272,9 +272,23 @@ class KneeMRIDataset(Dataset):
 
 
 class WorldStratDataset(Dataset):
+    """
+    Class of the WorldStratDataset, extending the class Dataset
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ):
+        """
+        "__init__": WorldStratDataset constructor
+
+        Args:
+        self (WorldStratDataset Object): the WorldStratDataset object itself
+        res_path (str): path to the folder with the WorldStratDataset
+        img_transform (callable): image transformations applied to the dataset
+
+        Return:
+        None
+        """
         super().__init__()
 
         self.__root_path = join(res_path, "downloaded", "WorldStrat")
@@ -303,9 +317,29 @@ class WorldStratDataset(Dataset):
 
     @property
     def class_to_idx(self) -> Dict[str, int]:
+        """
+        "class_to_idx": creates a dictionary for each class associated with an index
+
+        Args:
+        self (WorldStratDataset Object): the WorldStratDataset object itself
+
+        Return:
+        Dictionary: associates a number (index) to each label (class)
+        """
         return self.__class_to_idx
 
     def __getitem__(self, index: int) -> Tuple[th.Tensor, th.Tensor]:
+        """
+        "__getitem__": gets an image after receiving its index
+
+        Args:
+        self (WorldStratDataset Object): the WorldStratDataset object itself
+        index (int): position of the element
+
+        Return (tuple of torch tensors):
+        img_transformed (torch tensor): transformed image
+        (torch tensor): image class converted to tensor
+        """
         folder_name = self.__metadata.iloc[index, 0]
         png_name = join(
             self.__root_path, folder_name, f"{folder_name}_rgb.png"
