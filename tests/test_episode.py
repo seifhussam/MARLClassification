@@ -14,6 +14,22 @@ def test_episode(
     nb_agent: int,
     height_width: Tuple[int, int],
 ) -> None:
+    """
+    "test_episode": used to test the results of a mockup episode
+    
+    Args:
+    batch_size (int): size of the batch
+    marl_m (MultiAgent object): object with the multiple agents in the
+    simulation
+    step (int): number of steps
+    nb_class (int): number of classes
+    nb_agent (int): number of agents
+    height_width (Tuple[int, int]): height and width of the image
+
+    Return:
+    None
+    """
+
     x = th.randn(batch_size, 1, *height_width)
 
     pred, log_proba = episode(marl_m, x, step)
@@ -37,6 +53,23 @@ def test_detailed_episode(
     dim: int,
     height_width: Tuple[int, int],
 ) -> None:
+    """
+    "test_detailed_episode": used to test the results of a mockup episode
+    displaying detailed information
+    
+    Args:
+    batch_size (int): size of the batch
+    marl_m (MultiAgent object): object with the multiple agents in the simulation
+    step (int): number of steps
+    nb_class (int): number of classes
+    nb_agent (int): number of agents
+    dim (int): dimensions of the dataset (2 if it is 2D and 3 if it is 3D)
+    height_width (Tuple[int, int]): height and width of the image
+
+    Return:
+    None
+    """
+
     x = th.randn(batch_size, 1, *height_width)
 
     pred, log_proba, values, pos = detailed_episode(
