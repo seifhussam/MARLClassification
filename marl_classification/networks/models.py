@@ -26,6 +26,14 @@ from .recurrent import LSTMCellWrapper
 # Base class test
 #####################
 class ModelsWrapper(nn.Module):
+    """
+    Most important class in the project, ModelsWrapper, which extends the nn.Module
+
+    It starts with a dictionary that stores the corresponding name of each equation
+    in the paper to the code module.
+
+    Then creates a dictionary for the possible datasets to use this implementation
+    """
     # Modules
     map_obs: str = "b_theta_5"
     map_pos: str = "lambda_theta_7"
@@ -82,6 +90,26 @@ class ModelsWrapper(nn.Module):
         hidden_size_belief: int,
         hidden_size_action: int,
     ) -> None:
+        """
+        "__init__": ModelsWrapper class constructor that uses as input all the 
+        necessary information in the training or testing process
+
+        Args:
+        self (ModelsWrapper object): ModelsWrapper object itself
+        ft_extr_str (str): string describing the feature extracting module used
+        f (int): window size
+        n_b (int): hidden size for belief in LSTM
+        n_a (int): hidden size for action LTSM
+        n_m (int): message size for Neural Networks
+        n_d (int): state hidden size
+        d (int): state dimension
+        actions (List[List[int]]): list of possible actions
+        nb_class (int): number of possible classes
+        hidden_size_belief (int): size of the hidden belief
+        hidden_size_action (int): size of the hidden action
+
+        Return: None
+        """
         super().__init__()
 
         map_obs_module = self.ft_extractors[ft_extr_str](f)
@@ -128,6 +156,19 @@ class ModelsWrapper(nn.Module):
     def forward(
         self, op: str, *args: th.Tensor
     ) -> Union[th.Tensor, Tuple[th.Tensor, th.Tensor]]:
+        """
+        "forward": calculates the forward step of the ModelsWrapper
+
+        Args:
+        self (ModelsWrapper object): ModelsWrapper object itself
+        op (str): name of the network to use
+        *args (torch tensor): multiple unspecified arguments that are the
+        networks input
+
+        Return:
+        Union[th.Tensor, Tuple[th.Tensor, th.Tensor]]: results of the forward
+        pass in each network
+        """
         return cast(
             Union[th.Tensor, Tuple[th.Tensor, th.Tensor]],
             self.__networks_dict[op](*args),
@@ -135,16 +176,54 @@ class ModelsWrapper(nn.Module):
 
     @property
     def nb_class(self) -> int:
+        """
+        "nb_class": returns the number of classes expected in the ModelsWrapper
+
+        Args:
+        self (ModelsWrapper object): ModelsWrapper object itself
+
+        Return:
+        int: number of classes
+        """
         return self.__nb_class
 
     @property
     def f(self) -> int:
+        """
+        "f": returns the window size in the ModelsWrapper
+
+        Args:
+        self (ModelsWrapper object): ModelsWrapper object itself
+
+        Return:
+        int: window size
+        """
         return self.__f
 
     def get_params(self, ops: List[str]) -> List[th.Tensor]:
+        """
+        "get_params": returns the number of parameters in the desired networks
+
+        Args:
+        self (ModelsWrapper object): ModelsWrapper object itself
+        ops (List[str]): desired networks
+
+        Return:
+        List[torch tensor]: list with the number of parameters in each network
+        """
         return [p for op in ops for p in self.__networks_dict[op].parameters()]
 
     def json_args(self, out_json_path: str) -> None:
+        """
+        "json_args": saves the arguments used in the model to a JSON file
+
+        Args:
+        self (ModelsWrapper object): ModelsWrapper object itself
+        out_json_path (str): output path
+
+        Return:
+        None
+        """
         with open(out_json_path, "w", encoding="utf-8") as json_f:
             args_d = {
                 "ft_extr_str": self.__ft_extr_str,
@@ -164,6 +243,16 @@ class ModelsWrapper(nn.Module):
 
     @classmethod
     def from_json(cls, json_path: str) -> "ModelsWrapper":
+        """
+        "from_json": reads a model from a JSON file
+
+        Args:
+        cls: ModelsWrapper class itself
+        json_path (str): JSON file path
+
+        Return:
+        ModelsWrapper object
+        """
         assert exists(json_path) and isfile(
             json_path
         ), f'"{json_path}" does not exist or is not a file'

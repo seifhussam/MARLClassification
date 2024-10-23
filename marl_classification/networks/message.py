@@ -8,10 +8,25 @@ from torchvision.ops import Permute
 
 class MessageSender(nn.Module):
     """
+    Creates the class responsible for sending messages between agents, extending nn.Module
+    """
+    """
     m_θ4 : R^n -> R^n_m
     """
 
     def __init__(self, n: int, n_m: int, hidden_size: int) -> None:
+        """
+        "__init__": MessageSender constructor
+
+        Args:
+        self (MessageSender object): MessageSender object itself
+        n (int): input dimension
+        n_m (int): message dimension
+        hidden_size (int): hidden layer size
+
+        Return:
+        None
+        """
         super().__init__()
         self.__n = n
         self.__n_m = n_m
@@ -27,15 +42,39 @@ class MessageSender(nn.Module):
         )
 
     def forward(self, h_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": returns the forward step of the network
+        
+        Args:
+        self (MessageSender object): MessageSender object itself
+        h_t (torch tensor): input tensor
+
+        Return:
+        torch tensor: forward step of the network
+        """
         return cast(th.Tensor, self.__seq_lin(h_t))
 
 
 class MessageReceiver(nn.Module):
     """
+    Creates the MessageReceiver class, extending the nn.Module
+    """
+    """
     d_θ6 : R^n_m -> R^n
     """
 
     def __init__(self, n_m: int, n: int) -> None:
+        """
+        "__init__": MessageReceiver constructor
+
+        Args:
+        self (MessageReceiver object): MessageReceiver object itself
+        n (int): input dimension
+        n_m (int): message dimension
+
+        Return:
+        None
+        """
         super().__init__()
         self.__n = n
         self.__n_m = n_m
@@ -46,4 +85,14 @@ class MessageReceiver(nn.Module):
         )
 
     def forward(self, m_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": returns the forward step of the network
+        
+        Args:
+        self (MessageReceiver object): MessageReceiver object itself
+        h_t (torch tensor): input tensor
+
+        Return:
+        torch tensor: forward step of the network
+        """
         return cast(th.Tensor, self.__seq_lin(m_t))
