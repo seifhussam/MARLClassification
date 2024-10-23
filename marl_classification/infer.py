@@ -30,6 +30,24 @@ def visualize_steps(
     device_str: str,
     class_map: Mapping[Any, int],
 ) -> None:
+    """
+    "visualize_steps": receives the infer and network information and allows
+    the step visualization, saving it to an animated GIF
+
+    Args:
+    agents (MultiAgent object): object with the multiple agents
+    img (torch tensor): original image
+    img_ori (torch tensor): transformed image
+    max_it (int): number of maximum iterations
+    f (int): window size
+    output_dir (str): output directory
+    nb_class (int): number of classes
+    device_str (str): string describing the processing device
+    class_map (Mapping[Any, int]): mapping of classes number to its description
+
+    Return
+    None
+    """
     idx_to_class = {class_map[k]: k for k in class_map}
 
     color_map = None
@@ -113,6 +131,18 @@ def visualize_steps(
 
 
 def infer(main_options: MainOptions, infer_options: InferOptions) -> None:
+    """
+    "infer": receives the network information and procedes to infer it
+    respecting the options selected
+
+    Args:
+    main_options (NamedTuple): main options regarding the run
+    infer_options (NamedTuple): specific infer options regarding the
+    infer
+
+    Return:
+    None
+    """
     assert exists(
         infer_options.json_path
     ), f'JSON path "{infer_options.json_path}" does not exist'

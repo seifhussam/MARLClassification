@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from typing import List, NamedTuple
 
+"""
+Organizes the main options in named tuples, similar to dictionaries
+"""
+
 MainOptions = NamedTuple(
     "MainOptions",
     [

@@ -36,6 +36,18 @@ from .options import MainOptions, TrainOptions
 
 
 def train(main_options: MainOptions, train_options: TrainOptions) -> None:
+    """
+    "train": receives the network information and procedes to train it
+    respecting the options selected
+
+    Args:
+    main_options (NamedTuple): main options regarding the run
+    train_options (NamedTuple): specific train options regarding the
+    train
+
+    Return:
+    None
+    """
     assert train_options.dim in (2, 3), (
         "Only 2D or 3D is supported at the moment "
         "for data loading and observation / transition. "
