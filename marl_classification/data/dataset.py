@@ -15,6 +15,15 @@ from torchvision.datasets import ImageFolder
 
 
 def my_pil_loader(path: str) -> Image.Image:
+    """
+    "my_pil_loader": loads an image using Pillow, cosnidering the image's path
+
+    Args:
+    path (str): image's path
+
+    Return
+    Pillow image 
+    """
     # open path as file to avoid ResourceWarning
     # (https://github.com/python-pillow/Pillow/issues/835)
     with open(path, "rb") as f:
@@ -23,9 +32,24 @@ def my_pil_loader(path: str) -> Image.Image:
 
 
 class MNISTDataset(ImageFolder):
+    """
+    Class of the MNIST dataset, extending the ImageFolder object
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": MNISTDataset class constructor
+
+        Args:
+        self (MNISTDataset Object): the MNISTDataset Object itself
+        res_path (str): root path
+        img_transform (callable): image transformation
+
+        Return:
+        None
+        """
+
         mnist_root_path = join(res_path, "downloaded", "mnist_png", "all_png")
 
         assert exists(mnist_root_path) and isdir(
@@ -42,9 +66,24 @@ class MNISTDataset(ImageFolder):
 
 
 class RESISC45Dataset(ImageFolder):
+    """
+    Class of the RESISC45Dataset dataset, extending the ImageFolder object
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": RESISC45Dataset class constructor
+
+        Args:
+        self (RESISC45Dataset Object): the RESISC45Dataset Object itself
+        res_path (str): root path
+        img_transform (callable): image transformation
+
+        Return:
+        None
+        """
+
         resisc_root_path = join(res_path, "downloaded", "NWPU-RESISC45")
 
         assert exists(resisc_root_path) and isdir(
@@ -61,9 +100,24 @@ class RESISC45Dataset(ImageFolder):
 
 
 class AIDDataset(ImageFolder):
+    """
+    Class of the AIDDataset dataset, extending the ImageFolder object
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": AIDDataset class constructor
+
+        Args:
+        self (AIDDataset Object): the AIDDataset Object itself
+        res_path (str): root path
+        img_transform (callable): image transformation
+
+        Return:
+        None
+        """
+
         aid_root_path = join(res_path, "downloaded", "AID")
 
         assert exists(aid_root_path) and isdir(
@@ -80,7 +134,21 @@ class AIDDataset(ImageFolder):
 
 
 class KneeMRIDataset(Dataset):
+    """
+    Class of the KneeMRIDataset dataset, extending the Dataset object
+    """
     def __init__(self, res_path: str, _: Callable[[Any], th.Tensor]):
+        """
+        "__init__": KneeMRIDataset class constructor
+
+        Args:
+        self (KneeMRIDataset Object): the KneeMRIDataset Object itself
+        res_path (str): root path
+        _ (callable): unused
+
+        Return:
+        None
+        """
         super().__init__()
 
         self.__knee_mri_root_path = join(res_path, "downloaded", "knee_mri")
@@ -99,6 +167,15 @@ class KneeMRIDataset(Dataset):
         self.__nb_img = 0
 
         def __open_pickle_size(fn: str) -> None:
+            """
+            "__open_pickle_size": uses the Pickle library to open the MRI volume
+
+            Args:
+            fn (str): Name of the volume
+
+            Return:
+            None
+            """
             with open(
                 join(self.__knee_mri_root_path, "extracted", fn), "rb"
             ) as f:
@@ -126,6 +203,15 @@ class KneeMRIDataset(Dataset):
         }
 
     def __open_img(self, fn: str) -> th.Tensor:
+        """
+        "__open_img": used to open an image
+
+        Args:
+        fn (str): Name of the volume
+
+        Return:
+        torch tensor: opened image
+        """
         with open(join(self.__knee_mri_root_path, "extracted", fn), "rb") as f:
             x = pkl.load(f)
 
@@ -155,6 +241,16 @@ class KneeMRIDataset(Dataset):
         return fun.pad(x, [pad_6, pad_5, pad_4, pad_3, pad_2, pad_1], value=0)
 
     def __getitem__(self, index: int) -> Tuple[th.Tensor, th.Tensor]:
+        """
+        "__getitem__": gets an item from the KneeMRIDataset 
+
+        Args:
+        self (KneeMRIDataset): KneeMRIDataset object itself
+        index (int): index of the image
+
+        Return:
+        Tuple of two torch tensors: image and respective label
+        """
         fn = self.__dataset[index][0]
 
         label = self.__dataset[index][1]
@@ -163,13 +259,36 @@ class KneeMRIDataset(Dataset):
         return img, th.tensor(label)
 
     def __len__(self) -> int:
+        """
+        "__len__": returns the lenght (number of images) of the dataset
+
+        Args:
+        self (KneeMRIDataset): KneeMRIDataset object itself
+
+        Return:
+        int: number of images in the dataset
+        """
         return self.__nb_img
 
 
 class WorldStratDataset(Dataset):
+    """
+    Class of the WorldStratDataset, extending the class Dataset
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ):
+        """
+        "__init__": WorldStratDataset constructor
+
+        Args:
+        self (WorldStratDataset Object): the WorldStratDataset object itself
+        res_path (str): path to the folder with the WorldStratDataset
+        img_transform (callable): image transformations applied to the dataset
+
+        Return:
+        None
+        """
         super().__init__()
 
         self.__root_path = join(res_path, "downloaded", "WorldStrat")
@@ -198,9 +317,29 @@ class WorldStratDataset(Dataset):
 
     @property
     def class_to_idx(self) -> Dict[str, int]:
+        """
+        "class_to_idx": creates a dictionary for each class associated with an index
+
+        Args:
+        self (WorldStratDataset Object): the WorldStratDataset object itself
+
+        Return:
+        Dictionary: associates a number (index) to each label (class)
+        """
         return self.__class_to_idx
 
     def __getitem__(self, index: int) -> Tuple[th.Tensor, th.Tensor]:
+        """
+        "__getitem__": gets an image after receiving its index
+
+        Args:
+        self (WorldStratDataset Object): the WorldStratDataset object itself
+        index (int): position of the element
+
+        Return (tuple of torch tensors):
+        img_transformed (torch tensor): transformed image
+        (torch tensor): image class converted to tensor
+        """
         folder_name = self.__metadata.iloc[index, 0]
         png_name = join(
             self.__root_path, folder_name, f"{folder_name}_rgb.png"
@@ -215,15 +354,38 @@ class WorldStratDataset(Dataset):
         return img_transformed, th.tensor(png_class_idx)
 
     def __len__(self) -> int:
+        """
+        "__len__": returns the lenght (number of images) of the dataset
+
+        Args:
+        self (WorldStratDataset): WorldStratDataset object itself
+
+        Return:
+        int: number of images in the dataset
+        """
         return len(self.__metadata)
 
 
 class SkinCancerDataset(ImageFolder):
+    """
+    Creates the class of the SkinCancerDataset, extending the class ImageFolder
+    """
     # https://github.com/Ipsedo/MARLClassification/issues/4
     # https://drive.google.com/drive/folders/17g6zFSbCNXTV3VaDKop73W7Cn-NJlTO7?usp=sharing
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": constructor of the SkinCancerDataset class
+
+        Args:
+        self (SkinCancerDataset object): the SkinCancerDataset object itself
+        res_path (str): SkinCancerDataset folder's path
+        img_transform (callable): image transformation applied
+
+        Return:
+        None
+        """
         skin_cancer_dataset_path = join(res_path, "downloaded", "skin_cancer")
 
         assert exists(skin_cancer_dataset_path) and isdir(
@@ -240,9 +402,23 @@ class SkinCancerDataset(ImageFolder):
 
 
 class KineticsDataset(Dataset):
+    """
+    Creates the KineticsDataset class extending from the Dataset class
+    """
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
+        """
+        "__init__": KineticsDataset class constructor
+
+        Args:
+        self (KineticsDataset object): KineticsDataset object itself
+        res_path (str): KineticsDataset folder's path
+        img_transform (callable): image transformation applied
+
+        Return:
+        None
+        """
         kinetics_dataset_path = join(
             res_path, "downloaded", "kinetics700_2020"
         )
@@ -274,6 +450,17 @@ class KineticsDataset(Dataset):
         self.__transform = img_transform
 
     def __getitem__(self, index: int) -> Tuple[th.Tensor, th.Tensor]:
+        """
+        "__getitem__": gets an image after receiving an index
+
+        Args:
+        self (KineticsDataset object): KineticsDataset object itself
+        index (int): image's index
+
+        Return:
+        tuple of torch tensors: the transformed image and the 
+        label of the image 
+        """
         video_path = self.__all_videos[index]
         video_label = self.__all_labels[video_path]
 
@@ -291,7 +478,25 @@ class KineticsDataset(Dataset):
 
     @property
     def class_to_idx(self) -> Dict[str, int]:
+        """
+        "class_to_idx": creates a dictionary for each class associated with an index
+
+        Args:
+        self (KineticsDataset Object): the KineticsDataset object itself
+
+        Return:
+        Dictionary: associates a number (index) to each label (class)
+        """
         return self.__class_to_idx
 
     def __len__(self) -> int:
+        """
+        "__len__": returns the lenght (number of images) of the dataset
+
+        Args:
+        self (KineticsDataset): KineticsDataset object itself
+
+        Return:
+        int: number of images in the dataset
+        """
         return len(self.__all_videos)
