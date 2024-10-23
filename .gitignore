@@ -11,3 +11,4 @@ build/
 .pytest_cache/
 tests/tmp/
 .vscode/settings.json
+env
