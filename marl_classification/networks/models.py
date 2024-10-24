@@ -116,15 +116,23 @@ class ModelsWrapper(nn.Module):
 
         self.__networks_dict = nn.ModuleDict(
             {
-                self.map_obs: map_obs_module, # partial observation
-                self.map_pos: StateToFeatures(d, n_d), # image processing
+                self.map_obs: map_obs_module, # Agent partial observation
+                self.map_pos: StateToFeatures(d, n_d), # Processes the position of the agent to features
                 self.evaluate_msg: MessageSender(n_b, n_m, hidden_size_belief), # one component of Communication module
                 self.belief_unit: LSTMCellWrapper(
                     map_obs_module.out_size + n_d + n_m, n_b
                 ), # belief Module
+                # Input: result of the partial observation, agent position, and message received (In the article, the 
+                # aggregate of this three metrics correspond to the u letter)
+                # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
+                # Equation 1 
                 self.action_unit: LSTMCellWrapper(
                     map_obs_module.out_size + n_d + n_m, n_a
                 ), # Decision Module
+                # Input: result of the partial observation, agent position, and message received (In the article, the 
+                # aggregate of this three metrics correspond to the u letter)
+                # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
+                # Equation 4
                 self.policy: Policy(len(actions), n_a, hidden_size_action), # Policy Module
                 self.critic: Critic(n_a, hidden_size_action),
                 self.predict: Prediction(n_b, nb_class, hidden_size_belief), # Prediction Module
