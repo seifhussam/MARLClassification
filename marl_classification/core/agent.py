@@ -185,6 +185,8 @@ class MultiAgent:
 
         # Observation
         o_t = self.__obs(img, self.pos, self.__f)
+        print("o_t")
+        print(o_t.shape)
 
         # Feature space
         # CNN need (N, C, S1, S2, ..., Sd)
@@ -194,6 +196,8 @@ class MultiAgent:
             self.__networks.map_obs,
             o_t.flatten(0, 1),
         ).view(nb_agent, self.__batch_size, -1)
+        print("b_t")
+        print(b_t.shape)
 
         self.__receivedMsgs.append(
             self.__networks(
@@ -201,9 +205,13 @@ class MultiAgent:
                 self.__h[self.__t],
             )
         )
+        print("received msgs")
+        print(self.__receivedMsgs.shape)
 
         # Get messages
         d_bar_t_tmp = self.__receivedMsgs[self.__t]
+        print("d_bar_t_tmp")
+        print(d_bar_t_tmp.shape)
         # sum on agent
         d_bar_t_sum = d_bar_t_tmp.sum(dim=0)
         d_bar_t = (d_bar_t_sum - d_bar_t_tmp) / (nb_agent - 1)
