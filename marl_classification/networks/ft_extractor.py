@@ -454,7 +454,7 @@ class StateToFeatures(nn.Module):
         "forward": forward step of the CNN
 
         Args:
-        self (KneeMRICnn object): KneeMRICnn object itself
+        self (StateToFeatures object): StateToFeatures object itself
         o_t (torch tensor): image input of the CNN
 
         Return:
