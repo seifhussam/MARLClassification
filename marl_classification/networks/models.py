@@ -16,7 +16,7 @@ from .ft_extractor import (
     StateToFeatures,
     WorldStratCnn,
 )
-from .message import MessageSender
+from .message import MessageSender, MessageReceiver
 from .policy import Critic, Policy
 from .prediction import Prediction
 from .recurrent import LSTMCellWrapper
@@ -40,6 +40,8 @@ class ModelsWrapper(nn.Module):
 
     evaluate_msg: str = "m_theta_4"
 
+    receiver_msg: str = "d_theta_6"
+
     belief_unit: str = "belief_unit"
     action_unit: str = "action_unit"
 
@@ -52,6 +54,7 @@ class ModelsWrapper(nn.Module):
         map_obs,
         map_pos,
         evaluate_msg,
+        receiver_msg,
         belief_unit,
         action_unit,
         policy,
@@ -119,6 +122,7 @@ class ModelsWrapper(nn.Module):
                 self.map_obs: map_obs_module, # Agent partial observation
                 self.map_pos: StateToFeatures(d, n_d), # Processes the position of the agent to features
                 self.evaluate_msg: MessageSender(n_b, n_m, hidden_size_belief), # one component of Communication module
+                self.receiver_msg: MessageReceiver(n_m, n_b), # one component of Communication module
                 self.belief_unit: LSTMCellWrapper(
                     map_obs_module.out_size + n_d + n_m, n_b
                 ), # belief Module

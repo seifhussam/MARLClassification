@@ -90,7 +90,7 @@ class MessageReceiver(nn.Module):
         
         Args:
         self (MessageReceiver object): MessageReceiver object itself
-        h_t (torch tensor): input tensor
+        m_t (torch tensor): input tensor
 
         Return:
         torch tensor: forward step of the network

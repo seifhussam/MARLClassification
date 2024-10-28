@@ -132,6 +132,15 @@ class MultiAgent:
             )
         ]
 
+        self.__receivedMsgs = [
+            th.zeros(
+                self.__nb_agents,
+                batch_size,
+                self.__n_m,
+                device=th.device(self.__device_str),
+            )
+        ]
+
         self.__msg = [
             th.zeros(
                 self.__nb_agents,
@@ -186,8 +195,15 @@ class MultiAgent:
             o_t.flatten(0, 1),
         ).view(nb_agent, self.__batch_size, -1)
 
+        self.__receivedMsgs.append(
+            self.__networks(
+                self.__networks.receiver_msg,
+                self.__h[self.__t],
+            )
+        )
+
         # Get messages
-        d_bar_t_tmp = self.__msg[self.__t]
+        d_bar_t_tmp = self.__receivedMsgs[self.__t]
         # sum on agent
         d_bar_t_sum = d_bar_t_tmp.sum(dim=0)
         d_bar_t = (d_bar_t_sum - d_bar_t_tmp) / (nb_agent - 1)
