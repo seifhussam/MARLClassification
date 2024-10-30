@@ -100,11 +100,12 @@ Epoch 49 - Eval, eval_prec = 0.9123, eval_rec = 0.9094:
 ### 1. Key Observations
 
 Increasing the number of agents (4 to 6) led to a consistent improvement in model accuracy and a reduction in error rates,
- indicating that a higher agent count enhances the model's ability to classify images more effectively.
+indicating that a higher agent count enhances the model's ability to classify images more effectively.
 
 ### 2. Issues Encountered
 
 - Message Reciver is not applied to the model.
+- increasing the number of agents proportionally increases time 
 
 ### 3. Future Improvements
 NA
@@ -122,5 +123,5 @@ NA
 
 - Results could be replicated on the following commit:
 ```bash
-git checkout 4d924926e9fc1a05a4457fc905ed4018b554aa87
+git checkout e3d230024e175aa19f8f6e635a4b6fc7d569270b
 ```
