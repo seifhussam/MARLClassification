@@ -429,6 +429,8 @@ def train(main_options: MainOptions, train_options: TrainOptions) -> None:
         train_options.nb_class,
         device_str,
         dataset.class_to_idx,
-    )
+    )    
+
+    mlflow.pytorch.log_model(nn_models, f"models/{exp_name}/{main_options.run_id}")
 
     mlflow.end_run()
