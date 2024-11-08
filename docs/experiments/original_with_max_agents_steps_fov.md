@@ -2,14 +2,14 @@
 
 ## Experiment Overview
 
-- **Number of Neurons Experiment:**  
-  *Test the difference between the Original implementations with the hyperparameters used in the paper and in the implementation.*
+- **Max Steps and Epochs Experiment:**  
+  *Test the best possible outcome with the message module fully implemented.*
 
 - **Date:**  
   *[05/11/2024]*
 
 - **What changed from Original Experiment:**
-  *The hidden size, message size and batch size were changed to meet with the values used in the paper*
+  *The hidden size, message size and batch size were changed to meet with the values used in the paper, as in the number of neurons experiment. Also, the number of agents, steps and field of view were increased to the maximum used in the paper, in order to test whether this implementation allows as good results as the paper, in its most extreme conditions.*
 
 ---
 
@@ -19,13 +19,13 @@
 
 | Hyperparameter | Value                           | Description                                                          |
 | -------------- | ------------------------------- | -------------------------------------------------------------------- |
-| `-a`           | `3`                             | *Number of agents.*                                                  |
-| `--step`       | `5`                             | *Number of steps.*                                                   |
+| `-a`           | `6`                             | *Number of agents.*                                                  |
+| `--step`       | `9`                             | *Number of steps.*                                                   |
 | `--action`     | `"[[1,0],[-1,0],[0,1],[0,-1]]"` | *Possible steps for each agent.*                                     |
 | `--img-size`   | `28`                            | *Image Size.*                                                        |
 | `--nb-class`   | `10`                            | *Number of possible classes in the dataset.*                         |
 | `-d`           | `2`                             | *State dimension (e.g. 2D).*                                         |
-| `--f`          | `6`                             | *Observation window size.*                                           |
+| `--f`          | `8`                             | *Observation window size.*                                           |
 | `--ft-extr`    | `mnist`                         | *Feature extractor (e.g. CNN for mnist).*                            |
 | `--nb`         | `64`                            | *Hidden size for belief in Long Short-Term Memory (LSTM).*           |
 | `--na`         | `64`                            | *Hidden size for Action in Long Short-Term Memory (LSTM).*           |
@@ -39,7 +39,7 @@
 
 Running command:
 ```bash
-python -m marl_classification -a 3 --step 5 --run-id original_experiment train --action "[[1,0],[-1,0],[0,1],[0,-1]]" --img-size 28 --nb-class 10 -d 2 --f 6 --ft-extr mnist --nb 64 --na 64 --nm 12 --nd 64 --nlb 64 --nla 64 --batch-size 64 --lr 1e-3 --nb-epoch 50 -o ./out/mnist_original
+python -m marl_classification -a 6 --step 9 --run-id original_experiment train --action "[[1,0],[-1,0],[0,1],[0,-1]]" --img-size 28 --nb-class 10 -d 2 --f 8 --ft-extr mnist --nb 64 --na 64 --nm 12 --nd 64 --nlb 64 --nla 64 --batch-size 64 --lr 1e-3 --nb-epoch 50 -o ./out/mnist_original
 ```
 
 ---
@@ -47,13 +47,14 @@ python -m marl_classification -a 3 --step 5 --run-id original_experiment train -
 ## Results
 
 ```bash
-Epoch 49 - Train, train_prec = 0.843, train_rec = 0.842, c_loss = 1.500, a_loss = 1.482, error = 0.498, path = -1.009:
-Epoch 49 - Eval, eval_prec = 0.8429, eval_rec = 0.8467
+Epoch 49 - Train, train_prec = 0.9826, train_rec = 0.9828, c_loss = 2.758, a_loss = -2.1103, error = 0.0955, path = -2.9694:
+Epoch 49 - Eval, eval_prec = 0.9744, eval_rec = 0.9739
+
 ```
 
 ### 3. Graphs and Plots
 
-![alt text](img/number_of_neurons.png)
+![alt text](img/original_max_agents_steps_fov.png)
 
 ---
 
@@ -61,20 +62,20 @@ Epoch 49 - Eval, eval_prec = 0.8429, eval_rec = 0.8467
 
 ### 1. Key Observations
 
-- *Overall, the evaluation curves are similar, except on the last epochs, the results are better, around 0.5% and more consistently than in the other tests.*
+- *The values the model attained with the selected parameters turned out to be almost perfect, attaining what the best precision expected for the MNIST dataset, without overfitting.*
 
 ### 2. Issues Encountered
 
-- *None*
+- *Training time is more than the double than the previous examples, since the hyperparameters that require most computacional power were increased. It took 4.4h to train while with othere hyperparameters it took 1.8h.*
 
 ### 3. Future Improvements
 
-- *Since the values obtained were similar to the obtained with the values suggested by the repository's author, this values should be considered the default ones, to present closer similarity with the original paper.*
+- *Improving this model's precision would probably lead to overfitting. The only possible improvement is to obtain such results with less computacional burden.*
 
 ---
 
 ## Conclusion
 
-- *Besides not showing much improvement, the values used are faithful to the original article implementation and therefore should be considered the default.*
+- *Despite the computational burden required to train this model, the best possible outcome for this dataset was attained. The precision can not be further improved and only changes to improve its efficiency should be made.*
 
 ---
