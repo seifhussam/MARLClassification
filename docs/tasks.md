@@ -20,4 +20,16 @@ New Tasks:
 - Task-6: Try more agents or increase window size. [David]
 - Task-7: Try new step directions for moving diagonally. actions=[[1,1],[-1,-1],[1,-1],[-1,1]]
 - Task-8: Investigate changing rewards according to action. [Whoever has capacity]
-- Task-9: Investigate if random actions are implemented in the code. (ref: fig 6 from the paper) [David]
+- Task-9: Investigate if random actions are implemented in the code. (ref: fig 6 from the paper) [David] --> there is no implementation of random actions in the code.
+
+## Week 3: 05-11-2024 to 12-11-2024
+Carryover:
+- Task-1: Increase the observation window size to X and run the experiment. [Pedro]
+- Document findings in the experiment template. [Task-2, Task-4, Task-6, Task-7]
+- Task-8: Investigate changing rewards according to action. [João]
+
+New Tasks:
+- Task-10: Investigate another dataset for the experiment. [Seif]
+- Task-11: Investigate stopping/resuming training (to mimic the training paper described in the paper). [David]
+- Task-12: Investigate the effect of stopping communication. [Pedro]
+- Task-13: Add a bool flag to enable/disable message reciever. [David]
