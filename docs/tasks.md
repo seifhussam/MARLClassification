@@ -24,7 +24,7 @@ New Tasks:
 
 ## Week 3: 05-11-2024 to 12-11-2024
 Carryover:
-- Task-1: Increase the observation window size to X and run the experiment. [Pedro]
+- Task-1: Increase the observation window size to [4, 6, 8, 16, 28] and run the experiment. [Pedro]
 - Document findings in the experiment template. [Task-2, Task-4, Task-6, Task-7]
 - Task-8: Investigate changing rewards according to action. [João]
 
@@ -33,3 +33,20 @@ New Tasks:
 - Task-11: Investigate stopping/resuming training (to mimic the training paper described in the paper). [David]
 - Task-12: Investigate the effect of stopping communication. [Pedro]
 - Task-13: Add a bool flag to enable/disable message reciever. [David]
+
+## Week 4: 12-11-2024 to 19-11-2024
+
+Notes:
+- Task-12 was done by David and Task-11 will be reassigned to Pedro 
+
+Carryover:
+- Task-1: Increase the observation window size to [4, 6, 8, 16, 28] and run the experiment. [Pedro]
+- Document findings in the experiment template. [Task-7] [João]
+- Task-8: Investigate changing rewards according to action. [João]
+- Task-10: Investigate another dataset (SEMEION) for the experiment. [Seif]
+- Task-12: Run David's branch with non-communication [Seif] + Documenting the experiment [David]
+- Task-11: Investigate stopping/resuming training (to mimic the training paper described in the paper). [Pedro]
+
+New Tasks:
+- Task-14: Start working on the final report. (ask about the report template) [David starts and everyone contributes]
+- Task-15: Start working on the final presentation. (deadline 8th of December) [Seif starts and everyone contributes]
