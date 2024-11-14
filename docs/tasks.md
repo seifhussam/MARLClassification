@@ -18,7 +18,7 @@ Carryover:
 New Tasks:
 - Task-5: Try even numbers for the Communcation time. [6,8] [Seif]
 - Task-6: Try more agents or increase window size. [David]
-- Task-7: Try new step directions for moving diagonally. actions=[[1,1],[-1,-1],[1,-1],[-1,1]]
+- Task-7: Try new step directions for moving diagonally. actions=[[1,1],[-1,-1],[1,-1],[-1,1]] [Joao]
 - Task-8: Investigate changing rewards according to action. [Whoever has capacity]
 - Task-9: Investigate if random actions are implemented in the code. (ref: fig 6 from the paper) [David] --> there is no implementation of random actions in the code.
 
