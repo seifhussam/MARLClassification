@@ -70,12 +70,12 @@ Epoch 49 - Eval, eval_prec = 0.8337, eval_rec = 0.8262
 
 ### 3. Future Improvements
 
-- *There are no future improvements regarding this experiment. The results are better with communication turned on and therefore, to obtain better results, it must be kept that way.*
+- *There are no future improvements regarding this experiment. The results are better with communication turned on and therefore, to obtain better results, it must be kept that way. To observe a more significant change, the number of steps per episode should be reduced.*
 
 ---
 
 ## Conclusion
 
-- *The impact no communication has on the framework evaluation accuracy is around 1%. On training, it is around 5%.s*
+- *The impact no communication has on the framework evaluation accuracy is around 1%. On training, it is around 5%.*
 
 ---
