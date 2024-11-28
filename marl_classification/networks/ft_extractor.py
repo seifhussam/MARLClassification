@@ -9,8 +9,9 @@ from torchvision.ops import Permute
 
 class CNNFtExtract(nn.Module, ABC):
     """
-    Class of the CNNs used for feature extraction, extending torch nn.Module 
+    Class of the CNNs used for feature extraction, extending torch nn.Module
     """
+
     @property
     @abstractmethod
     def out_size(self) -> int:
@@ -28,6 +29,7 @@ class MNISTCnn(CNNFtExtract):
     """
     Class of the MNIST feature extracting, extending CNNFtExtract
     """
+
     """
     b_θ5 : R^f*f -> R^n
     """
@@ -39,7 +41,7 @@ class MNISTCnn(CNNFtExtract):
         Args:
         self (MNISTCnn object): MNISTCnn object itself
         f (int): window size
-        
+
         Return: None
         """
         super().__init__()
@@ -94,6 +96,7 @@ class RESISC45Cnn(CNNFtExtract):
     """
     Class of the RESISC45 feature extracting, extending CNNFtExtract
     """
+
     def __init__(self, f: int) -> None:
         """
         "__init__": RESISC45Cnn constructor
@@ -101,7 +104,7 @@ class RESISC45Cnn(CNNFtExtract):
         Args:
         self (RESISC45Cnn object): RESISC45Cnn object itself
         f (int): window size
-        
+
         Return: None
         """
         super().__init__()
@@ -155,6 +158,7 @@ class AIDCnn(CNNFtExtract):
     """
     Class of the AID feature extracting, extending CNNFtExtract
     """
+
     def __init__(self, f: int) -> None:
         """
         "__init__": AIDCnn constructor
@@ -162,7 +166,7 @@ class AIDCnn(CNNFtExtract):
         Args:
         self (AIDCnn object): AIDCnn object itself
         f (int): window size
-        
+
         Return: None
         """
         super().__init__()
@@ -220,6 +224,7 @@ class WorldStratCnn(CNNFtExtract):
     """
     Class of the WorldStrat feature extracting, extending CNNFtExtract
     """
+
     def __init__(self, f: int) -> None:
         """
         "__init__": WorldStratCnn constructor
@@ -227,7 +232,7 @@ class WorldStratCnn(CNNFtExtract):
         Args:
         self (WorldStratCnn object): WorldStratCnn object itself
         f (int): window size
-        
+
         Return: None
         """
         super().__init__()
@@ -292,6 +297,7 @@ class KneeMRICnn(CNNFtExtract):
     """
     Class of the KneeMRI feature extracting, extending CNNFtExtract
     """
+
     def __init__(self, f: int = 16):
         """
         "__init__": KneeMRICnn constructor
@@ -299,7 +305,7 @@ class KneeMRICnn(CNNFtExtract):
         Args:
         self (KneeMRICnn object): KneeMRICnn object itself
         f (int): window size, default 16
-        
+
         Return: None
         """
         super().__init__()
@@ -354,6 +360,7 @@ class SkinCancerCnn(CNNFtExtract):
     """
     Class of the SkinCancer feature extracting, extending CNNFtExtract
     """
+
     # https://github.com/Ipsedo/MARLClassification/issues/4
     # https://drive.google.com/drive/folders/17g6zFSbCNXTV3VaDKop73W7Cn-NJlTO7?usp=sharing
     def __init__(self, f: int) -> None:
@@ -363,7 +370,7 @@ class SkinCancerCnn(CNNFtExtract):
         Args:
         self (SkinCancerCnn object): SkinCancerCnn object itself
         f (int): window size
-        
+
         Return: None
         """
         super().__init__()
@@ -414,6 +421,68 @@ class SkinCancerCnn(CNNFtExtract):
         return out
 
 
+class Ciphar10Cnn(CNNFtExtract):
+    """
+    Class of the Ciphar feature extracting, extending CNNFtExtract
+
+    b_θ5 : R^f*f -> R^n
+    """
+
+    def __init__(self, f: int) -> None:
+        """
+        "__init__": CipharCnn constructor
+
+        Args:
+        self (CipharCnn object): CipharCnn object itself
+        f (int): window size
+
+        Return: None
+        """
+        super().__init__()
+
+        self.__seq_conv = nn.Sequential(
+            nn.Conv2d(3, 32, (3, 3), padding=1),
+            nn.GELU(),
+            nn.MaxPool2d(2, 2),
+            nn.BatchNorm2d(32),
+            nn.Conv2d(32, 64, (3, 3), padding=1),
+            nn.GELU(),
+            nn.MaxPool2d(2, 2),
+            nn.BatchNorm2d(64),
+            nn.Flatten(1, -1),
+        )
+
+        self.__out_size = 64 * (f // 4) ** 2
+
+    def forward(self, o_t: th.Tensor) -> th.Tensor:
+        """
+        "forward": forward step of the CNN
+
+        Args:
+        self (CipharCnn object): CipharCnn object itself
+        o_t (torch tensor): image input of the CNN
+
+        Return:
+        torch tensor: result of the forward step
+
+        """
+        out: th.Tensor = self.__seq_conv(o_t)
+        return out
+
+    @property
+    def out_size(self) -> int:
+        """
+        "out_size": size of the output
+
+        Args:
+        self (CipharCnn object): CipharCnn object itself
+
+        Return:
+        int: size of the output
+        """
+        return self.__out_size
+
+
 ############################
 # State to features stuff
 ############################
@@ -421,6 +490,7 @@ class StateToFeatures(nn.Module):
     """
     Creates the StateToFeatures class, which extends torch nn.Module
     """
+
     """
     λ_θ7 : R^d -> R^n
     """
