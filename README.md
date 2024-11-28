@@ -1,29 +1,17 @@
 # MARLClassification
 
-[Multi-Agent Image Classification via Reinforcement Learning](https://arxiv.org/abs/1905.04835)
+David Castanho Terroso, 202308694
+João Longras, 
+Pedro Azevedo, 201905966
+Seifeldin Mostafa, 202403076
 
-## TODO
-- train on AID
-- docstring
+In this repository, the work done in the curricular unit of "Topics in Intelligent Systems" of the Master's in Artificial Intelligence. The work developed is based on the paper [Multi-Agent Image Classification via Reinforcement Learning](https://arxiv.org/abs/1905.04835) and code here presented is inspired by [this repository](https://github.com/Ipsedo/MARLClassification).
 
-## Results
+There are two branches in this repository: [main](https://github.com/seifhussam/MARLClassification), where most of the experiments were done and inspired in the original repository, and [original_experiment](https://github.com/seifhussam/MARLClassification/tree/original_experiment), where experiments more faithful to the selected article were conducted. Below, it is possible to see the main findings of this project.
 
-Trained on MNIST (see `resources/trained_models/mnist`) :
-
-|          | Loss            |  Train   |   Eval    |
-|----------|-----------------|:--------:|:---------:|
-| Epoch 0 | 1.5161 | 41%, 42% | 44%, 44% |
-| Epoch 20 | 0.5385 | 80%, 80% | 80%, 79% |
-| Epoch 39 | 0.5218 | 81%, 81% | 82%, 81% |
-
-Train on image dataset NWPU-RESISC45 (see `resources/trained_models/resisc45`) :
-
-|          | Loss |   Train   |   Eval    |
-|----------| --- |:---------:|:---------:|
-|          | | prec, rec | prec, rec |
-| Epoch 0  | 2.6236 | 21%, 26%  | 25%, 26%  |
-| Epoch 20 | 1.3262 | 57%, 57%  | 58%, 57%  |
-| Epoch 49 | 0.9263 | 68%, 68%  | 66%, 65%  |
+## Main Findings
+### Communication
+The experiments regarding communication were done in the [original_experiment](https://github.com/seifhussam/MARLClassification/tree/original_experiment) branch. The main differences between [original_experiment](https://github.com/seifhussam/MARLClassification/tree/original_experiment) and [main](https://github.com/seifhussam/MARLClassification) were the communication module implementation: the message was encoded by each agent at the time it was being sent, but was not being decoded. In this branch, that is fixed and allows the training to be done with partial communication, as it was in the original repository, with full communication, as it is done in the original article, and with no communication at all. From these three experiments, described in [this folder](https://github.com/seifhussam/MARLClassification/tree/original_experiment/docs/experiments), the following was concluded:
 
 ## Installation
 ```bash
@@ -33,7 +21,7 @@ $ python -m venv venv
 $ ./venv/bin/activate
 $ # install requirements
 $ pip install -r requirements.txt
-$ # download datasets using sh scripts in resources folder, ex : MNIST
+$ # REQUIRES KAGGLE API KEY: download datasets using sh scripts in resources folder, ex : MNIST
 $ ./resources/download_mnist.sh
 ```
 
