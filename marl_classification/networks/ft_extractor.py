@@ -421,19 +421,19 @@ class SkinCancerCnn(CNNFtExtract):
         return out
 
 
-class Ciphar10Cnn(CNNFtExtract):
+class Cifar10Cnn(CNNFtExtract):
     """
-    Class of the Ciphar feature extracting, extending CNNFtExtract
+    Class of the Cifar feature extracting, extending CNNFtExtract
 
     b_θ5 : R^f*f -> R^n
     """
 
     def __init__(self, f: int) -> None:
         """
-        "__init__": CipharCnn constructor
+        "__init__": CifarCnn constructor
 
         Args:
-        self (CipharCnn object): CipharCnn object itself
+        self (CifarCnn object): CifarCnn object itself
         f (int): window size
 
         Return: None
@@ -459,7 +459,7 @@ class Ciphar10Cnn(CNNFtExtract):
         "forward": forward step of the CNN
 
         Args:
-        self (CipharCnn object): CipharCnn object itself
+        self (CifarCnn object): CifarCnn object itself
         o_t (torch tensor): image input of the CNN
 
         Return:
@@ -475,7 +475,7 @@ class Ciphar10Cnn(CNNFtExtract):
         "out_size": size of the output
 
         Args:
-        self (CipharCnn object): CipharCnn object itself
+        self (CifarCnn object): CifarCnn object itself
 
         Return:
         int: size of the output

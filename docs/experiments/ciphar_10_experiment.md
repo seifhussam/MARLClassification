@@ -2,15 +2,15 @@
 
 ## Experiment Overview
 
-- **Ciphar 10 Experiment:**  
-  This experiment aims to train a Multi-Agent Reinforcement Learning (MARL) model on the Ciphar 10 dataset. 
+- **Cifar 10 Experiment:**  
+  This experiment aims to train a Multi-Agent Reinforcement Learning (MARL) model on the Cifar 10 dataset. 
 
 
 - **Date:**  
   *28/11/2024*
 
 - **What changed from Base Experiment:**
-  - This experiment uses the Ciphar 10 dataset instead of the MNIST dataset.
+  - This experiment uses the Cifar 10 dataset instead of the MNIST dataset.
   - Agent can only do 7 steps for each episode.
   - Agent can only move diagonally.
   - Number of agents set are 3, 6, 10.
@@ -46,20 +46,20 @@ Running command:
 for 3 agents
 ```bash
 # add running command here
-python -m marl_classification -a 3 --step 7 --run-id train_ciphar_10__3_agents__7_steps train --action "[[1,1],[-1,-1],[-1,1],[1,-1]]" --img-size 32 --nb-class 10 -d 2 --f 8 --ft-extr ciphar_10 --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/ciphar_actor_critic
+python -m marl_classification -a 3 --step 7 --run-id train_cifar_10__3_agents__7_steps train --action "[[1,1],[-1,-1],[-1,1],[1,-1]]" --img-size 32 --nb-class 10 -d 2 --f 8 --ft-extr cifar_10 --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/cifar_actor_critic
 ```
 
 for 6 agents
 ```bash
 # add running command here
-python -m marl_classification -a 6 --step 7 --run-id train_ciphar_10__6_agents__7_steps train --action "[[1,1],[-1,-1],[-1,1],[1,-1]]" --img-size 32 --nb-class 10 -d 2 --f 8 --ft-extr ciphar_10 --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/ciphar_actor_critic_6_agents
+python -m marl_classification -a 6 --step 7 --run-id train_cifar_10__6_agents__7_steps train --action "[[1,1],[-1,-1],[-1,1],[1,-1]]" --img-size 32 --nb-class 10 -d 2 --f 8 --ft-extr cifar_10 --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/cifar_actor_critic_6_agents
 
 ```
 
 for 10 agents
 ```bash
 # add running command here
-python -m marl_classification -a 10 --step 7 --run-id train_ciphar_10__10_agents__7_steps train --action "[[1,1 ],[-1,-1],[-1,1],[1,-1]]" --img-size 32 --nb-class 10 -d 2 --f 8 --ft-extr ciphar_10 --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/ciphar_actor_critic_10_agents
+python -m marl_classification -a 10 --step 7 --run-id train_cifar_10__10_agents__7_steps train --action "[[1,1 ],[-1,-1],[-1,1],[1,-1]]" --img-size 32 --nb-class 10 -d 2 --f 8 --ft-extr cifar_10 --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/cifar_actor_critic_10_agents
 ```
 ---
 

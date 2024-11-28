@@ -509,19 +509,19 @@ class KineticsDataset(Dataset):
         return len(self.__all_videos)
 
 
-class Ciphar10Dataset(ImageFolder):
+class Cifar10Dataset(ImageFolder):
     """
-    Class of the Ciphar10 dataset, extending the ImageFolder object
+    Class of the Cifar10 dataset, extending the ImageFolder object
     """
 
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
         """
-        "__init__": Ciphar10Dataset class constructor
+        "__init__": Cifar10Dataset class constructor
 
         Args:
-        self (Ciphar10Dataset Object): the Ciphar10Dataset Object itself
+        self (Cifar10Dataset Object): the Cifar10Dataset Object itself
         res_path (str): root path
         img_transform (callable): image transformation
 
@@ -529,14 +529,14 @@ class Ciphar10Dataset(ImageFolder):
         None
         """
 
-        ciphar_root_path = join(res_path, "downloaded", "ciphar_10", "all_png")
+        cifar_root_path = join(res_path, "downloaded", "cifar_10", "all_png")
 
-        assert exists(ciphar_root_path) and isdir(
-            ciphar_root_path
-        ), f"{ciphar_root_path} does not exist or is not a directory"
+        assert exists(cifar_root_path) and isdir(
+            cifar_root_path
+        ), f"{cifar_root_path} does not exist or is not a directory"
 
         super().__init__(
-            ciphar_root_path,
+            cifar_root_path,
             transform=img_transform,
             target_transform=None,
             loader=my_pil_loader,
