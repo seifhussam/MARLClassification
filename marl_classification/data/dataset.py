@@ -22,7 +22,7 @@ def my_pil_loader(path: str) -> Image.Image:
     path (str): image's path
 
     Return
-    Pillow image 
+    Pillow image
     """
     # open path as file to avoid ResourceWarning
     # (https://github.com/python-pillow/Pillow/issues/835)
@@ -35,6 +35,7 @@ class MNISTDataset(ImageFolder):
     """
     Class of the MNIST dataset, extending the ImageFolder object
     """
+
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
@@ -69,6 +70,7 @@ class RESISC45Dataset(ImageFolder):
     """
     Class of the RESISC45Dataset dataset, extending the ImageFolder object
     """
+
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
@@ -103,6 +105,7 @@ class AIDDataset(ImageFolder):
     """
     Class of the AIDDataset dataset, extending the ImageFolder object
     """
+
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
@@ -137,6 +140,7 @@ class KneeMRIDataset(Dataset):
     """
     Class of the KneeMRIDataset dataset, extending the Dataset object
     """
+
     def __init__(self, res_path: str, _: Callable[[Any], th.Tensor]):
         """
         "__init__": KneeMRIDataset class constructor
@@ -242,7 +246,7 @@ class KneeMRIDataset(Dataset):
 
     def __getitem__(self, index: int) -> Tuple[th.Tensor, th.Tensor]:
         """
-        "__getitem__": gets an item from the KneeMRIDataset 
+        "__getitem__": gets an item from the KneeMRIDataset
 
         Args:
         self (KneeMRIDataset): KneeMRIDataset object itself
@@ -275,6 +279,7 @@ class WorldStratDataset(Dataset):
     """
     Class of the WorldStratDataset, extending the class Dataset
     """
+
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ):
@@ -370,6 +375,7 @@ class SkinCancerDataset(ImageFolder):
     """
     Creates the class of the SkinCancerDataset, extending the class ImageFolder
     """
+
     # https://github.com/Ipsedo/MARLClassification/issues/4
     # https://drive.google.com/drive/folders/17g6zFSbCNXTV3VaDKop73W7Cn-NJlTO7?usp=sharing
     def __init__(
@@ -405,6 +411,7 @@ class KineticsDataset(Dataset):
     """
     Creates the KineticsDataset class extending from the Dataset class
     """
+
     def __init__(
         self, res_path: str, img_transform: Callable[[Any], th.Tensor]
     ) -> None:
@@ -458,8 +465,8 @@ class KineticsDataset(Dataset):
         index (int): image's index
 
         Return:
-        tuple of torch tensors: the transformed image and the 
-        label of the image 
+        tuple of torch tensors: the transformed image and the
+        label of the image
         """
         video_path = self.__all_videos[index]
         video_label = self.__all_labels[video_path]
@@ -500,3 +507,38 @@ class KineticsDataset(Dataset):
         int: number of images in the dataset
         """
         return len(self.__all_videos)
+
+
+class Ciphar10Dataset(ImageFolder):
+    """
+    Class of the Ciphar10 dataset, extending the ImageFolder object
+    """
+
+    def __init__(
+        self, res_path: str, img_transform: Callable[[Any], th.Tensor]
+    ) -> None:
+        """
+        "__init__": Ciphar10Dataset class constructor
+
+        Args:
+        self (Ciphar10Dataset Object): the Ciphar10Dataset Object itself
+        res_path (str): root path
+        img_transform (callable): image transformation
+
+        Return:
+        None
+        """
+
+        ciphar_root_path = join(res_path, "downloaded", "ciphar_10", "all_png")
+
+        assert exists(ciphar_root_path) and isdir(
+            ciphar_root_path
+        ), f"{ciphar_root_path} does not exist or is not a directory"
+
+        super().__init__(
+            ciphar_root_path,
+            transform=img_transform,
+            target_transform=None,
+            loader=my_pil_loader,
+            is_valid_file=None,
+        )
