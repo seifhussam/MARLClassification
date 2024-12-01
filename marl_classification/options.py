@@ -37,6 +37,7 @@ TrainOptions = NamedTuple(
         ("frozen_modules", List[str]),
         ("ft_extr_str", str),
         ("gamma", float),
+        ("msg", str),
     ],
 )
 

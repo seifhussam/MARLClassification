@@ -235,6 +235,16 @@ def main() -> None:
         ],
         help="Choose module(s) to be frozen during training",
     )
+    train_parser.add_argument(
+        "--msg",
+        type=str,
+        default="full",
+        const="full",
+        nargs="?",
+        choices=["full", "sender", "none"],
+        dest="msg",
+        help="""Choose whether the communication is "full", "sender"" or "none" """,
+    )    
 
     ##################
     # Test args
@@ -378,6 +388,7 @@ def main() -> None:
                 list(set(args.frozen_modules)),
                 args.ft_extractor,
                 args.gamma,
+                args.msg,
             )
 
             if not exists(args.output_dir):

@@ -92,6 +92,7 @@ class ModelsWrapper(nn.Module):
         nb_class: int,
         hidden_size_belief: int,
         hidden_size_action: int,
+        msg: str,
     ) -> None:
         """
         "__init__": ModelsWrapper class constructor that uses as input all the 
@@ -110,6 +111,7 @@ class ModelsWrapper(nn.Module):
         nb_class (int): number of possible classes
         hidden_size_belief (int): size of the hidden belief
         hidden_size_action (int): size of the hidden action
+        msg (str): declares what sort of communication is going to be used
 
         Return: None
         """
@@ -121,27 +123,33 @@ class ModelsWrapper(nn.Module):
             {
                 self.map_obs: map_obs_module, # Agent partial observation
                 self.map_pos: StateToFeatures(d, n_d), # Processes the position of the agent to features
-                self.evaluate_msg: MessageSender(n_b, n_m, hidden_size_belief), # one component of Communication module
                 self.receiver_msg: MessageReceiver(n_m, n_b), # one component of Communication module
-                self.belief_unit: LSTMCellWrapper(
-                    map_obs_module.out_size + n_d + n_b, n_b
-                ), # belief Module
-                # Input: result of the partial observation, agent position, and message received (In the article, the 
-                # aggregate of this three metrics correspond to the u letter)
-                # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
-                # Equation 1 
-                self.action_unit: LSTMCellWrapper(
-                    map_obs_module.out_size + n_d + n_b, n_a
-                ), # Decision Module
-                # Input: result of the partial observation, agent position, and message received (In the article, the 
-                # aggregate of this three metrics correspond to the u letter)
-                # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
-                # Equation 4
+                self.evaluate_msg: MessageSender(n_b, n_m, hidden_size_belief), # one component of Communication module
                 self.policy: Policy(len(actions), n_a, hidden_size_action), # Policy Module
                 self.critic: Critic(n_a, hidden_size_action),
                 self.predict: Prediction(n_b, nb_class, hidden_size_belief), # Prediction Module
             }
         )
+
+        if msg == "full":
+            lstm_input_size = map_obs_module.out_size + n_d + n_b
+        elif msg == "sender":
+            lstm_input_size = map_obs_module.out_size + n_d + n_m
+        elif msg == "none":
+            lstm_input_size = map_obs_module.out_size + n_d
+        
+        self.__networks_dict[self.belief_unit] = LSTMCellWrapper(lstm_input_size, n_b)
+            # belief Module
+            # Input: result of the partial observation, agent position, and message received (In the article, the 
+            # aggregate of this three metrics correspond to the u letter)
+            # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
+            # Equation 1 
+        self.__networks_dict[self.action_unit] = LSTMCellWrapper(lstm_input_size, n_a) 
+            # Decision Module
+            # Input: result of the partial observation, agent position, and message received (In the article, the 
+            # aggregate of this three metrics correspond to the u letter)
+            # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
+            # Equation 4
 
         self.__ft_extr_str = ft_extr_str
 

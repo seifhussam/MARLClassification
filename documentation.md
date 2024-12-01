@@ -113,6 +113,7 @@ same for `test` and `infer`.
 - "--gamma": discount factor
 - "--nb-epoch": number of training epochs
 - "--freeze": modules to freeze during training
+- "--msg": information about the communication modules used in the training; can be "full" for full communication, "sender" to only encode the message sent and "none" so that no communication is done between agents
 
 ### Test Arguments
 
