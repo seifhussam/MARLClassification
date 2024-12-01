@@ -5,9 +5,9 @@ João Longras,
 Pedro Azevedo, 201905966
 Seifeldin Mostafa, 202403076
 
-In this repository, the work done in the curricular unit of "Topics in Intelligent Systems" of the Master's in Artificial Intelligence. The work developed is based on the paper [Multi-Agent Image Classification via Reinforcement Learning](https://arxiv.org/abs/1905.04835) [1] and code here presented is inspired by [this repository](https://github.com/Ipsedo/MARLClassification).
-
-There are two branches in this repository: [main](https://github.com/seifhussam/MARLClassification), where most of the experiments were done and inspired in the original repository, and [original_experiment](https://github.com/seifhussam/MARLClassification/tree/original_experiment), where experiments more faithful to the selected article were conducted. Below, it is possible to see the main findings of this project.
+In this repository, the work done in the curricular unit of "Topics in Intelligent Systems" of the Master's in Artificial Intelligence. The work developed is based on the paper [Multi-Agent Image Classification via Reinforcement Learning](https://arxiv.org/abs/1905.04835) [1] and code here presented is inspired by [this repository](https://github.com/Ipsedo/MARLClassification). <br>
+There are two branches in this repository: [main](https://github.com/seifhussam/MARLClassification), where most of the experiments were done and inspired in the original repository, and [original_experiment](https://github.com/seifhussam/MARLClassification/tree/original_experiment), where experiments more faithful to the selected article were conducted. Below, it is possible to see the main findings of this project. <br>
+To further understand the organization of this repository, please check the documentation.md file in each branch: [main](https://github.com/seifhussam/MARLClassification/blob/main/documentation.md) and [original_experiment](https://github.com/seifhussam/MARLClassification/blob/original_experiment/documentation.md).
 
 ## Main Findings
 ### Communication
