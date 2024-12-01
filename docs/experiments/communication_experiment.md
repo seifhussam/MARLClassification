@@ -54,7 +54,7 @@ Epoch 49 - Eval, eval_prec = 0.8337, eval_rec = 0.8262
 
 ### 3. Graphs and Plots
 
-![alt text](communication_experiment.png)
+![alt text](img/communication_experiment.png)
 
 ---
 
