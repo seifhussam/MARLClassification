@@ -42,5 +42,4 @@ $ python -m marl_classification -a 3 --step 5 --cuda --run-id train_mnist train 
 ```
 
 ## Reference
-[1]
-H. K. Mousavi, M. Nazari, M. Takáč, and N. Motee, "Multi-agent image classification via reinforcement learning", in 2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2019, pp. 5020-5027.
+[1] H. K. Mousavi, M. Nazari, M. Takáč, and N. Motee, "Multi-agent image classification via reinforcement learning", in 2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2019, pp. 5020-5027.
