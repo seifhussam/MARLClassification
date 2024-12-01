@@ -1,9 +1,9 @@
 # MARLClassification
 
-David Castanho Terroso, 202308694
-João Longras, 202108780
-Pedro Azevedo, 201905966
-Seifeldin Mostafa, 202403076
+David Castanho Terroso, 202308694 <br>
+João Longras, 202108780 <br>
+Pedro Azevedo, 201905966 <br>
+Seifeldin Mostafa, 202403076 <br>
 
 In this repository, the work done in the curricular unit of "Topics in Intelligent Systems" of the Master's in Artificial Intelligence. The work developed is based on the paper [Multi-Agent Image Classification via Reinforcement Learning](https://arxiv.org/abs/1905.04835) [1] and code here presented is inspired by [this repository](https://github.com/Ipsedo/MARLClassification). <br>
 There are two branches in this repository: [main](https://github.com/seifhussam/MARLClassification), where most of the experiments were done and inspired in the original repository, and [original_experiment](https://github.com/seifhussam/MARLClassification/tree/original_experiment), where experiments more faithful to the selected article were conducted. Below, it is possible to see the main findings of this project. <br>
