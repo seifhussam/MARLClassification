@@ -22,6 +22,7 @@ class MultiAgent:
         action: List[List[int]],
         obs: Callable[[th.Tensor, th.Tensor, int], th.Tensor],
         trans: Callable[[th.Tensor, th.Tensor, int, List[int]], th.Tensor],
+        msg: str,
     ) -> None:
         """
         "__init__": is the MultiAgent constructor
@@ -36,6 +37,7 @@ class MultiAgent:
         action (List[List[int]]): actions done by the agents
         obs (Callable): Callable object regarding the agents observations
         trans (Callable): Callable object representing the transitions
+        msg (str): declares what sort of communication is going to be used
 
         Return:
         None
@@ -56,6 +58,9 @@ class MultiAgent:
         # Env info
         self.__obs = obs
         self.__trans = trans
+
+        # Message module info
+        self.__msgOptions = msg
 
         # NNs wrapper
         self.__networks = model_wrapper
@@ -132,6 +137,15 @@ class MultiAgent:
             )
         ]
 
+        self.__receivedMsgs = [
+            th.zeros(
+                self.__nb_agents,
+                batch_size,
+                self.__n_b,
+                device=th.device(self.__device_str),
+            )
+        ]
+
         self.__msg = [
             th.zeros(
                 self.__nb_agents,
@@ -162,6 +176,24 @@ class MultiAgent:
             dim=-1,
         )
 
+    def compute_d_bar_t(d_bar_t_tmp, nb_agent):
+        """
+        "compute_d_bar_t" is an auxiliary function to calculate the 
+        average of the messages between the different agents except 
+        the agent message itself
+
+        Args
+        d_bar_t_tmp (float): values of the messages sent by the
+        agents
+        nb_agent (int): number of agents
+
+        Return
+        (int): return the average of the messages between the
+        different agents except the agent message itself
+        """
+        d_bar_t_sum = d_bar_t_tmp.sum(dim=0)
+        return (d_bar_t_sum - d_bar_t_tmp) / (nb_agent - 1)
+
     def step(self, img: th.Tensor) -> None:
         """
         "step": increases one step in the simulation
@@ -186,12 +218,24 @@ class MultiAgent:
             o_t.flatten(0, 1),
         ).view(nb_agent, self.__batch_size, -1)
 
-        # Get messages
-        d_bar_t_tmp = self.__msg[self.__t]
-        # sum on agent
-        d_bar_t_sum = d_bar_t_tmp.sum(dim=0)
-        d_bar_t = (d_bar_t_sum - d_bar_t_tmp) / (nb_agent - 1)
+        if self.__msgOptions == "full":
+            self.__receivedMsgs.append(
+                self.__networks(
+                    self.__networks.receiver_msg,
+                    self.__msg[self.__t],
+                )
+            )
+            # Get messages
+            d_bar_t_tmp = self.__receivedMsgs[self.__t]
+            # sum on agent
+            d_bar_t = self.compute_d_bar_t(d_bar_t_tmp, nb_agent)
 
+        if self.__msgOptions == "sender":
+            # Get messages
+            d_bar_t_tmp = self.__msg[self.__t]
+            # sum on agent
+            d_bar_t = self.compute_d_bar_t(d_bar_t_tmp, nb_agent)
+            
         # Map pos in feature space
         norm_pos = self.pos.to(th.float) / th.tensor(
             [[img_sizes]], device=th.device(self.__device_str)
@@ -203,8 +247,11 @@ class MultiAgent:
         )
 
         # LSTMs input
-        u_t = th.cat((b_t, d_bar_t, lambda_t), dim=2)
-
+        if (self.__msgOptions == "full") or (self.__msgOptions == "sender"):
+            u_t = th.cat((b_t, d_bar_t, lambda_t), dim=2)
+        if (self.__msgOptions == "none"):
+            u_t = th.cat((b_t, lambda_t), dim=2)
+            
         # Belief LSTM
         h_t_next, c_t_next = self.__networks(
             self.__networks.belief_unit,
@@ -218,12 +265,13 @@ class MultiAgent:
         self.__c.append(c_t_next)
 
         # Evaluate message
-        self.__msg.append(
-            self.__networks(
-                self.__networks.evaluate_msg,
-                self.__h[self.__t + 1],
+        if self.__msgOptions != "none":
+            self.__msg.append(
+                self.__networks(
+                    self.__networks.evaluate_msg,
+                    self.__h[self.__t + 1],
+                )
             )
-        )
 
         # Action unit LSTM
         h_caret_t_next, c_caret_t_next = self.__networks(

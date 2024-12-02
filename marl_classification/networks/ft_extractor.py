@@ -47,16 +47,15 @@ class MNISTCnn(CNNFtExtract):
         self.__seq_conv = nn.Sequential(
             nn.Conv2d(1, 16, (3, 3), padding=1),
             nn.GELU(),
-            nn.MaxPool2d(2, 2),
             nn.BatchNorm2d(16),
             nn.Conv2d(16, 32, (3, 3), padding=1),
             nn.GELU(),
-            nn.MaxPool2d(2, 2),
             nn.BatchNorm2d(32),
+            nn.MaxPool2d(2, 2) if f > 2 else nn.Identity(),
             nn.Flatten(1, -1),
         )
 
-        self.__out_size = 32 * (f // 4) ** 2
+        self.__out_size = 32 * ((f // 2) ** 2 if f > 2 else f ** 2)
 
     def forward(self, o_t: th.Tensor) -> th.Tensor:
         """

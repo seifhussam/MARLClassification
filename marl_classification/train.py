@@ -101,6 +101,7 @@ def train(main_options: MainOptions, train_options: TrainOptions) -> None:
         train_options.nb_class,
         train_options.hidden_size_linear_belief,
         train_options.hidden_size_linear_action,
+        train_options.msg,
     )
 
     dataset = dataset_constructor(
@@ -118,6 +119,7 @@ def train(main_options: MainOptions, train_options: TrainOptions) -> None:
         train_options.action,
         obs_generic,
         trans_generic,
+        train_options.msg,
     )
 
     mlflow.log_params(
@@ -140,6 +142,7 @@ def train(main_options: MainOptions, train_options: TrainOptions) -> None:
             "img_size": train_options.img_size,
             "step": main_options.step,
             "batch_size": train_options.batch_size,
+            "msg":train_options.msg,
         }
     )
 
