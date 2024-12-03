@@ -92,7 +92,7 @@ python -m marl_classification -a 18 --step 3 --run-id train_cifar_10__18_agents_
 ### 3. Graphs and Plots
 
 
-|                                                     ![cifar_10_eval_perc](./img/cifar_10_eval_perc.png.png)                                                     |
+|                                                       ![cifar_10_eval_perc](./img/cifar_10_eval_perc.png)                                                       |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | *This figure shows the evaluation precision for different runs. It shows how when increasing the number of agents to 18, we get the heighest precision: 0.754.* |
 
