@@ -15,6 +15,7 @@ from .ft_extractor import (
     SkinCancerCnn,
     StateToFeatures,
     WorldStratCnn,
+    Cifar10Cnn,
 )
 from .message import MessageSender
 from .policy import Critic, Policy
@@ -34,6 +35,7 @@ class ModelsWrapper(nn.Module):
 
     Then creates a dictionary for the possible datasets to use this implementation
     """
+
     # Modules
     map_obs: str = "b_theta_5"
     map_pos: str = "lambda_theta_7"
@@ -66,6 +68,7 @@ class ModelsWrapper(nn.Module):
     aid: str = "aid"
     world_strat: str = "worldstrat"
     skin_cancer: str = "skin_cancer"
+    cifar_10: str = "cifar_10"
 
     ft_extractors: Dict[str, Callable[[int], CNNFtExtract]] = {
         mnist: MNISTCnn,
@@ -74,6 +77,7 @@ class ModelsWrapper(nn.Module):
         aid: AIDCnn,
         world_strat: WorldStratCnn,
         skin_cancer: SkinCancerCnn,
+        cifar_10: Cifar10Cnn,
     }
 
     def __init__(
@@ -91,7 +95,7 @@ class ModelsWrapper(nn.Module):
         hidden_size_action: int,
     ) -> None:
         """
-        "__init__": ModelsWrapper class constructor that uses as input all the 
+        "__init__": ModelsWrapper class constructor that uses as input all the
         necessary information in the training or testing process
 
         Args:
@@ -116,26 +120,34 @@ class ModelsWrapper(nn.Module):
 
         self.__networks_dict = nn.ModuleDict(
             {
-                self.map_obs: map_obs_module, # Agent partial observation
-                self.map_pos: StateToFeatures(d, n_d), # Processes the position of the agent to features
-                self.evaluate_msg: MessageSender(n_b, n_m, hidden_size_belief), # one component of Communication module
+                self.map_obs: map_obs_module,  # Agent partial observation
+                self.map_pos: StateToFeatures(
+                    d, n_d
+                ),  # Processes the position of the agent to features
+                self.evaluate_msg: MessageSender(
+                    n_b, n_m, hidden_size_belief
+                ),  # one component of Communication module
                 self.belief_unit: LSTMCellWrapper(
                     map_obs_module.out_size + n_d + n_m, n_b
-                ), # belief Module
-                # Input: result of the partial observation, agent position, and message received (In the article, the 
+                ),  # belief Module
+                # Input: result of the partial observation, agent position, and message received (In the article, the
                 # aggregate of this three metrics correspond to the u letter)
                 # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
-                # Equation 1 
+                # Equation 1
                 self.action_unit: LSTMCellWrapper(
                     map_obs_module.out_size + n_d + n_m, n_a
-                ), # Decision Module
-                # Input: result of the partial observation, agent position, and message received (In the article, the 
+                ),  # Decision Module
+                # Input: result of the partial observation, agent position, and message received (In the article, the
                 # aggregate of this three metrics correspond to the u letter)
                 # hidden (h) and cell (c) state in the equation belong yo the LSTMCellWrapper
                 # Equation 4
-                self.policy: Policy(len(actions), n_a, hidden_size_action), # Policy Module
+                self.policy: Policy(
+                    len(actions), n_a, hidden_size_action
+                ),  # Policy Module
                 self.critic: Critic(n_a, hidden_size_action),
-                self.predict: Prediction(n_b, nb_class, hidden_size_belief), # Prediction Module
+                self.predict: Prediction(
+                    n_b, nb_class, hidden_size_belief
+                ),  # Prediction Module
             }
         )
 
