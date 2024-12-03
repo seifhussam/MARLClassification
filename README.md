@@ -19,6 +19,19 @@ The experiments regarding communication were done in the [original_experiment](h
 To improve the similarity between the experiment and the paper, the number of neurons in the layers, the message and the batch size was changed to match the ones described in the paper. More information about this experiment can be checked in [this document](https://github.com/seifhussam/MARLClassification/blob/original_experiment/docs/experiments/number_of_neurons_experiment.md). This experiment was done using the fully implemented communication module. The changes in the model's performance were insignificant and no correlation between the number of neurons, and the message and batch size experimented and the model's performance can be drawn. <br>
 However, to further test whether this change, combined with the fully implemented communication module, the number of agents, steps, and field of view was increased. While the training duration was significantly increased, the results were also the best obtained for this dataset. Due to the computational burden, no more experiments were done to test further improvements or close performances. More information about this experiment can be checked in [this document](https://github.com/seifhussam/MARLClassification/blob/original_experiment/docs/experiments/original_with_max_agents_steps_fov.md)
 
+### Number of steps
+
+The experiments regarding the number of steps were done in the main branch. The purpose of the experiment is to understand the impact of the number of steps taken by the agents on the model's performance. The experiment was conducted with different number of steps [1,3,5,6,7,8,9]. The results show that using 7 steps resulted in the highest evaluation precision and recall. This suggests that the agents need a sufficient number of steps to explore the environment and make informed decisions and contribute to the classification task.
+
+Experiment findings could be found in [this document](./docs/experiments/number_of_steps_experiment.md)
+
+### Cifar 10 Dataset
+
+The experiments regarding the Cifar 10 dataset were done in the main branch. The purpose of the experiment was to explore a more complex dataset than minst. Within this experiment, the number of agents were varied within this list [3, 6, 10, 12, 18]. However, after the number of agents exceeded 10, the number of steps decreased due to high computational cost.
+
+The results show that using a low number of steps and a high number of agents has a positive impact on the performance of the MARL model on the Cifar 10 dataset. Each agent only had partial information about the image, and the communication module helped the agents to share information and make better decisions.
+
+Experiment findings could be found in [this document](./docs/experiments/ciphar_10_experiment.md)
 
 ## Installation
 ```bash
