@@ -43,10 +43,25 @@ Carryover:
 - Task-1: Increase the observation window size to [4, 6, 8, 16, 28] and run the experiment. [Pedro]
 - Document findings in the experiment template. [Task-7] [João]
 - Task-8: Investigate changing rewards according to action. [João]
-- Task-10: Investigate another dataset (SEMEION) for the experiment. [Seif]
+- Task-10: Investigate another dataset (Cifar10) for the experiment. [Seif]
 - Task-12: Run David's branch with non-communication [Seif] + Documenting the experiment [David]
 - Task-11: Investigate stopping/resuming training (to mimic the training paper described in the paper). [Pedro]
 
 New Tasks:
 - Task-14: Start working on the final report. (ask about the report template) [David starts and everyone contributes]
 - Task-15: Start working on the final presentation. (deadline 8th of December) [Seif starts and everyone contributes]
+
+
+# Week 6: 26-11-2024 to 03-12-2024
+
+Notes:
+deprecating Task-8: Investigate changing rewards according to action. [confirm with João]
+deprecating Task-14:  Start working on the final report. (this is not a deliverable anymore)
+
+Tasks:
+- Task-1: Documentation [Pedro]
+- Readme Documentation [David, Seif] + Review [All team]
+- Task-11: Investigate stopping/resuming training (to mimic the training paper described in the paper). [Pedro]
+- Task-10: Document --> Investigate another dataset (Cifar10) for the experiment. [Seif]
+- Task-15: Start working on the final presentation. (deadline 8th of December) [Seif starts and everyone contributes]
+
