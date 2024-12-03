@@ -25,11 +25,11 @@ The experiments regarding the number of steps were done in the main branch. The 
 
 Experiment findings could be found in [this document](./docs/experiments/number_of_steps_experiment.md)
 
-### Cifar 10 Dataset
+### CIFAR-10 Dataset
 
-The experiments regarding the Cifar 10 dataset were done in the main branch. The purpose of the experiment was to explore a more complex dataset than minst. Within this experiment, the number of agents were varied within this list [3, 6, 10, 12, 18]. However, after the number of agents exceeded 10, the number of steps decreased due to high computational cost.
+The experiments regarding the CIFAR-10 dataset were done in the main branch. The purpose of the experiment was to explore a more complex dataset than MNIST. Within this experiment, the number of agents were varied within this list [3, 6, 10, 12, 18]. However, after the number of agents exceeded 10, the number of steps decreased due to high computational cost.
 
-The results show that using a low number of steps and a high number of agents has a positive impact on the performance of the MARL model on the Cifar 10 dataset. Each agent only had partial information about the image, and the communication module helped the agents to share information and make better decisions.
+The results show that using a low number of steps and a high number of agents has a positive impact on the performance of the MARL model on the CIFAR-10 dataset. Each agent only had partial information about the image, and the communication module helped the agents to share information and make better decisions.
 
 Experiment findings could be found in [this document](./docs/experiments/ciphar_10_experiment.md)
 
