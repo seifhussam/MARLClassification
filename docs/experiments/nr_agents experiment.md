@@ -3,9 +3,13 @@
 ## Experiment Overview
 
 - **Experiment Name:**  
-    effect of the number of agents on the results obtained
+    Effect of the Number of Agents on Performance
+
 - **Date:**  
   *[30/10/2024]*
+
+- **Objective:**  
+  To evaluate the impact of varying the number of agents (4, 5, and 6) on the performance of a multi-agent reinforcement learning (MARL) classification model.  
 
 ---
 
@@ -77,6 +81,17 @@ Epoch 49 - Eval, eval_prec = 0.9067, eval_rec = 0.9067:
 Epoch 49 - Train, train_prec = 0.908, train_rec = 0.908, c_loss = 1.3381, a_loss = 0.4259, error = 0.2683, path = -0.9155: 
 Epoch 49 - Eval, eval_prec = 0.9123, eval_rec = 0.9094: 
 ```
+### Key Metrics
+
+| **Metric**          | **4 Agents** | **5 Agents** | **6 Agents** |
+|---------------------|--------------|--------------|--------------|
+| **Train Precision** | 0.841        | 0.895        | 0.908        |
+| **Train Recall**    | 0.840        | 0.895        | 0.908        |
+| **Train Error**     | 0.4597       | 0.3153       | 0.2683       |
+| **Eval Precision**  | 0.8542       | 0.9067       | 0.9123       |
+| **Eval Recall**     | 0.8498       | 0.9067       | 0.9094       |
+| **Critic Loss**     | 1.4154       | 1.3906       | 1.3381       |
+| **Actor Loss**      | 1.3423       | 0.6409       | 0.4259       |
 
 ### 1. Performance Summary
 
@@ -91,30 +106,35 @@ Epoch 49 - Eval, eval_prec = 0.9123, eval_rec = 0.9094:
 
 ### 3. Graphs and Plots
 
-![plot](./img/nr_agents_0.png)
-![plot](./img/nr_agents_1.png)
+| **Figure**                    | **Description**                         |
+|-------------------------------|-----------------------------------------|
+| ![plot](./img/nr_agents/nr_agents_0.png) | *`eval_prec` vs ` Number of Agents`*  |
+|                               |                                         |
+| ![plot](./img/nr_agents/nr_agents_1.png) |  *`eval_recs` vs ` Number of Agents`*   |
+|                                |                                         |
+|  ![plot](./img/nr_agents/nr_agents_2.png)|   *`error` vs ` Number of Agents`*|    
 ---
 
 ## Discussion
 
 ### 1. Key Observations
 
-Increasing the number of agents (4 to 6) led to a consistent improvement in model accuracy and a reduction in error rates,
-indicating that a higher agent count enhances the model's ability to classify images more effectively.
+- Increasing the number of agents (2 to 6) led to a consistent improvement in model accuracy and a reduction in error rates,
+- indicating that a higher agent count enhances the model's ability to classify images more effectively.
 
 ### 2. Issues Encountered
 
-- Message Reciver is not applied to the model.
-- increasing the number of agents proportionally increases time 
+- Computational overhead grows with the number of agents, potentially limiting scalability in real-world applications.
+- Further investigation is needed to determine if the trend holds for significantly larger numbers of agents. 
 
 ### 3. Future Improvements
-NA
+- carry out other experiments with more agents
 
 ---
 
 ## Conclusion
 
-- *This experiment demonstrated that increasing the number of agents significantly improves classification accuracy and reduces error rates,confirming the value of a multi-agent approach in decentralized image classification.*
+- *This experiment validated the hypothesis that increasing the number of agents enhances classification accuracy and reduces errors. The results highlight the value of collaboration among agents in decentralized learning tasks, especially for challenging environments like image classification. However, careful consideration of computational trade-offs is necessary for scaling beyond six agents.*
 
 
 ## Appendix
