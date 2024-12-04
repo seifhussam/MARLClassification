@@ -110,7 +110,7 @@ Epoch 49 - Eval, eval_prec = 0.9123, eval_rec = 0.9094:
 |-------------------------------|-----------------------------------------|
 | ![plot](./img/nr_agents/nr_agents_0.png) | *`eval_prec` vs ` Number of Agents`*  |
 |                               |                                         |
-| ![plot](./img/nr_agents/nr_agents_1.png) |  *`eval_recs` vs ` Number of Agents`*   |
+| ![plot](./img/nr_agents/nr_agents_1.png) |  *`eval_recs` vs ` Number of Agents`*   
 |                                |                                         |
 |  ![plot](./img/nr_agents/nr_agents_2.png)|   *`error` vs ` Number of Agents`*|    
 ---
@@ -143,5 +143,5 @@ Epoch 49 - Eval, eval_prec = 0.9123, eval_rec = 0.9094:
 
 - Results could be replicated on the following commit:
 ```bash
-git checkout e3d230024e175aa19f8f6e635a4b6fc7d569270b
+git checkout 92d985ff0731e55bc73de45e2c24f29fcd4263fc
 ```
