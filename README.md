@@ -29,7 +29,7 @@ Experiment findings could be found in [this document](./docs/experiments/number_
 
 The experiments regarding the number of agents were conducted to evaluate their impact on the classification task's performance. Different configurations of agents were tested, ranging from 3 to 6 agents. Increasing the number of agents generally improved the model's performance due to better coverage of the visual information. However, as the number of agents exceeded a certain threshold, the performance gain plateaued, likely due to communication bottlenecks or redundant information sharing. A balanced number of agents is crucial to maximize classification accuracy while avoiding computational inefficiencies.
 
-Experiment findings could be found in [this document](./docs/experiments/nr_agents%20experiment.md)
+Experiment findings could be found in [this document](./docs/experiments/experiments_number_of_agents.md)
 
 ### Agent Actions
 
