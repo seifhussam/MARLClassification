@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Tasks
 
 The Definition of Done for each task is to write an experiment documentation in the format of the [experiment template](./experiments/experiement_template.md).
