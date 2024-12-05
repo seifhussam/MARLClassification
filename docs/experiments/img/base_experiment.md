@@ -3,16 +3,11 @@
 ## Experiment Overview
 
 - **Experiment Name:**  
-  Impact of Movement Variations on MARL Agent Performance.
+  This is the baseline experiment, running the code as is with default hyperparameters.
 
 - **Date:**  
-  *[06/11/2024]*
+  *[08/10/2024]*
 
-- **What changed from Base Experiment:**  
-  Three different movement configurations were tested:
-  1. **Basic movements:** `[1,0], [-1,0], [0,1], [0,-1]`.
-  2. **Diagonal movements only:** `[1,1], [-1,-1], [1,-1], [-1,1]`.
-  3. **Combined movements:** `[1,0], [-1,0], [0,1], [0,-1], [1,1], [-1,-1], [1,-1], [-1,1]`.
 ---
 
 ## Experimental Setup
@@ -42,40 +37,20 @@
 
 Running command:
 
-1. **Basic Movements:** `[1,0], [-1,0], [0,1], [0,-1]`.  
-
 ```bash
 python -m marl_classification -a 3 --step 5 --run-id train_mnist train --action "[[1,0],[-1,0],[0,1],[0,-1]]" --img-size 28 --nb-class 10 -d 2 --f 6 --ft-extr mnist --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/mnist_actor_critic
 ```
-```bash
 
-2. **Diagonal Movements Only:** `[1,1], [-1,-1], [1,-1], [-1,1]`.  
 
-python -m marl_classification -a 3 --step 5 --run-id train_mnist train --action "[[1,1],[-1,-1],[1,-1],[-1,1]]" --img-size 28 --nb-class 10 -d 2 --f 6 --ft-extr mnist --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/mnist_actor_critic
-```
-
-3. **Combined Movements:** `[1,0], [-1,0], [0,1], [0,-1], [1,1], [-1,-1], [1,-1], [-1,1]`.
-
-```bash
-python -m marl_classification -a 3 --step 5 --run-id train_mnist train --action "[[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]]" --img-size 28 --nb-class 10 -d 2 --f 6 --ft-extr mnist --nb 64 --na 64 --nm 16 --nd 8 --nlb 96 --nla 96 --batch-size 32 --lr 1e-3 --nb-epoch 50 -o ./out/mnist_actor_critic
-```
-
+---
 
 ## Results
 
-| Metric                    | Basic Movements      | Diagonal Movements Only | Combined Movements     |
-|---------------------------|----------------------|--------------------------|------------------------|
-| **Train Precision**       | `0.798`             | `0.857`                  | `0.858`                |
-| **Train Recall**          | `0.796`             | `0.857`                  | `0.858`                |
-| **Train Loss (Actor)**    | `1.9623`            | `1.399`                  | `1.399`                |
-| **Train Loss (Critic)**   | `1.4823`            | `1.491`                  | `1.527`                |
-| **Error (Train)**         | `0.5723`            | `0.477`                  | `0.368`                |
-| **Eval Precision**        | `0.8088`            | `0.85`                   | `0.846`                |
-| **Eval Recall**           | `0.803`             | `0.845`                  | `0.84`                 |
-| **Eval Loss (Actor)**     | `1.817`             | `2.89`                   | `2.89`                 |
-| **Eval Loss (Critic)**    | `1.547`             | `0.987`                  | `-1.547`               |
 
-
+```bash
+Epoch 49 - Train, train_prec = 0.827, train_rec = 0.826, c_loss = 1.5211, a_loss = 1.5761, error = 0.5015, path = -0.9313:
+Epoch 49 - Eval, eval_prec = 0.8172, eval_rec = 0.8145
+```
 
 ### 1. Performance Summary
 
