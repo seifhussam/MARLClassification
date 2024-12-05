@@ -8,7 +8,7 @@
 - **Date:**  
   *[06/11/2024]*
 
-- **What changed from Base Experiment:**  
+- **What changed:**  
   Three different movement configurations were tested:
   1. **Basic movements:** `[1,0], [-1,0], [0,1], [0,-1]`.
   2. **Diagonal movements only:** `[1,1], [-1,-1], [1,-1], [-1,1]`.
@@ -89,13 +89,14 @@ python -m marl_classification -a 3 --step 5 --run-id train_mnist train --action 
 - **Convergence:**  
   The model demonstrated convergence for the diagonal and combined movements configurations, with a steady reduction in error over epochs. However, the basic movements configuration showed slower and less consistent convergence, likely due to its limited action space restricting optimal pathfinding.
 
-![alt text](image.png)
 
 ### 3. Graphs and Plots
 
-|                                               ![diagonal](./img/diagonal.png)                                               |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| *This figure shows evaluation precision across movement configurations, with the combined configuration achieving the highest precision (~0.85%), and basic movements the lowest.*         |
+| **Figure**                    | **Description**                          |
+|-------------------------------|------------------------------------------|
+| ![plot](./img/actions/error.png) | *`Actions` vs `Error`*       |
+| ![plot](./img/actions/eval_prec.png) | *`Actions` vs `Eval_prec`*       |
+| ![plot](./img/actions/eval_recs.png) | *`Actions` vs `Eval_recs`*        |
 
 
 
@@ -120,7 +121,16 @@ python -m marl_classification -a 3 --step 5 --run-id train_mnist train --action 
 
 ## Conclusion
 
-The inclusion of diagonal movements significantly enhanced agent performance, likely because diagonal actions provide more flexibility in navigating the environment, allowing agents to select more optimal paths. This is reflected in improved precision, recall, and lower error rates compared to basic movements. While the combined movements configuration showed the highest potential, offering marginal gains in error reduction, it also introduced higher computational costs due to the expanded action space. Overall, the results suggest that diagonal movements play a crucial role in enabling agents to make better decisions and explore the environment more effectively, whereas basic movements alone are insufficient for achieving optimal performance in MARL tasks.
+The inclusion of diagonal movements significantly enhanced agent performance, likely because diagonal actions provide more flexibility in navigating the environment, allowing agents to select more optimal paths. This is reflected in improved precision and recall. While the combined movements configuration showed the highest potential, offering marginal gains in error reduction, it also introduced higher computational costs due to the expanded action space. Overall, the results suggest that diagonal movements play a crucial role in enabling agents to make better decisions and explore the environment more effectively, whereas basic movements alone are insufficient for achieving optimal performance in MARL tasks.
 
 
 ---
+
+## Appendix
+
+### 1. Code
+
+- Results could be replicated on the following commit:
+```bash
+git checkout 89956161d33595cf2ab24f48ab663fe17fec0830
+```
