@@ -25,6 +25,18 @@ The experiments regarding the number of steps were done in the main branch. The 
 
 Experiment findings could be found in [this document](./docs/experiments/number_of_steps_experiment.md)
 
+### Number of agents
+
+The experiments regarding the number of agents were conducted to evaluate their impact on the classification task's performance. Different configurations of agents were tested, ranging from 3 to 6 agents. Increasing the number of agents generally improved the model's performance due to better coverage of the visual information. However, as the number of agents exceeded a certain threshold, the performance gain plateaued, likely due to communication bottlenecks or redundant information sharing. A balanced number of agents is crucial to maximize classification accuracy while avoiding computational inefficiencies.
+
+Experiment findings could be found in [this document](./docs/experiments/experiments_number_of_agents.md)
+
+### Agent Actions
+
+The experiments involving agent actions highlighted the importance of flexibility in movement configurations. Configurations including diagonal actions resulted in better pathfinding capabilities, improving precision and recall compared to basic movements. This indicates that expanding the action space allows agents to navigate the environment more effectively, contributing to better overall performance in classification tasks.
+
+Experiment findings could be found in [this document](./docs/experiments/actions_expreriment.md)
+
 ### CIFAR-10 Dataset
 
 The experiments regarding the CIFAR-10 dataset were done in the main branch. The purpose of the experiment was to explore a more complex dataset than MNIST. Within this experiment, the number of agents were varied within this list [3, 6, 10, 12, 18]. However, after the number of agents exceeded 10, the number of steps decreased due to high computational cost.
